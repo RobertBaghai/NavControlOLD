@@ -10,18 +10,10 @@
 
 @interface ChildViewController : UITableViewController
 
-@property (nonatomic, retain) NSMutableArray *productOne;
-@property (nonatomic, retain) NSMutableArray *productTwo;
-@property (nonatomic, retain) NSMutableArray *productThree;
-@property (nonatomic, retain) NSMutableArray *productFour;
-
-@property (nonatomic, retain) NSMutableArray *picsOne;
-@property (nonatomic, retain) NSMutableArray *picsTwo;
-@property (nonatomic, retain) NSMutableArray *picsThree;
-@property (nonatomic, retain) NSMutableArray *picsFour;
+@property (nonatomic, retain) NSMutableArray *companyProducts;
 
 
-@property (nonatomic, retain) NSMutableArray *test;
+@property (nonatomic, retain) NSMutableArray *pics;
 
 
 @end

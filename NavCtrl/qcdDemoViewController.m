@@ -5,9 +5,10 @@
 //  Created by Aditya Narayan on 10/22/13.
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
 //
-
+#import "Company.h"
 #import "qcdDemoViewController.h"
 #import "ChildViewController.h"
+#import "Product.h"
 
 @interface qcdDemoViewController ()
 
@@ -34,18 +35,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    static dispatch_once_t p = 0;
+
+    dispatch_once(&p, ^{
+    self.dao = [[DataAccessObject alloc] init];
+    });
     
+    [self.dao getCompaniesAndProducts];
     
-    self.companyList = [[NSMutableArray alloc]
-                       initWithObjects:@"Apple mobile devices",
-                                       @"Samsung mobile devices",
-                                       @"HTC mobile devices",
-                                       @"LG mobile devices",nil];
-    
-    self.companyPics=[[NSMutableArray alloc] initWithObjects:@"apple.png",
-                                                      @"samsung.png",
-                                                      @"htc.png",
-                                                      @"lg.png", nil];
+    self.companyList = self.dao.companyList;
     
     self.title = @"Mobile device makers";
     
@@ -83,14 +81,16 @@
 
     
     // Configure the cell...
+    Company *companyN = [self.companyList objectAtIndex:[indexPath row] ];
 
-
-    cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+    cell.textLabel.text = companyN.companyName;
+    
 //    NSString * imageName = [self.companyPics objectAtIndex:[indexPath row]];
 //    UIImage* theImage = [UIImage imageNamed:imageName];
 //    cell.imageView.image= theImage;
     
-    cell.imageView.image = [UIImage imageNamed:[self.companyPics objectAtIndex:[indexPath row]]];
+    
+    cell.imageView.image = [UIImage imageNamed: companyN.companyLogo];
     
     return cell;
 }
@@ -111,7 +111,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.companyList removeObjectAtIndex:indexPath.row];
-        [self.companyPics removeObjectAtIndex:indexPath.row];
+//        [self.companyPics removeObjectAtIndex:indexPath.row];
     
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -155,25 +155,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    Company *compName = [self.companyList objectAtIndex:indexPath.row];
 
-    NSString *compName = [self.companyList objectAtIndex:indexPath.row];
+    self.childVC.title = compName.companyName;
     
-    
-    if ([compName isEqualToString:@"Apple mobile devices"]) {
-        self.childVC.title = @"Apple mobile devices";
-    }
-    
-    else if ([compName isEqualToString:@"Samsung mobile devices"]) {
-        self.childVC.title = @"Samsung mobile devices";
-    }
-    else if ([compName isEqualToString:@"HTC mobile devices"]) {
-        self.childVC.title = @"HTC mobile devices";
-    }
-    else if ([compName isEqualToString:@"LG mobile devices"]) {
-        self.childVC.title = @"LG mobile devices";
-    }
-   
-    
+    [self.childVC setCompanyProducts:compName.products];
+
     [self.navigationController pushViewController:self.childVC animated:YES];
     
   

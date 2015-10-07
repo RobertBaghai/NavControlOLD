@@ -24,7 +24,8 @@
     [_wkWeb loadRequest:req];
     
     _wkWeb.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-    [self.view addSubview:_wkWeb];
+    
+    self.view = _wkWeb;
 //    [self.webView loadRequest:req];
     
     

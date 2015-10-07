@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "DataAccessObject.h"
 
 @class ChildViewController;
 
@@ -16,7 +17,7 @@
 
 @property (nonatomic, retain) IBOutlet  ChildViewController * childVC;
 
-@property (nonatomic,retain)NSArray *myStringsArray;
+@property (nonatomic, retain) DataAccessObject *dao;
 
 
 
