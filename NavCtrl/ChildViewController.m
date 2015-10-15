@@ -8,12 +8,18 @@
 #import "ChildViewController.h"
 #import "UrlViewController.h"
 #import "Product.h"
+#import "addProductsViewController.h"
+#import "editProductCellViewController.h"
 
 @interface ChildViewController ()
+{
+    long indexPathCounter;
+}
 
 @end
 
 @implementation ChildViewController
+
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -32,22 +38,75 @@
     
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller. 
     
+    UIImage *addImage = [UIImage imageNamed:@"itemAdd"];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:addImage style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
+       NSArray *buttons = [[NSArray alloc]initWithObjects:addButton,self.editButtonItem,nil];
+    self.navigationItem.rightBarButtonItems = buttons;
+    
+    
+    
+    
+    self.tableView.delaysContentTouches = NO;
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    
+    UILongPressGestureRecognizer *holdEdit = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [holdEdit setCancelsTouchesInView:NO];
+    holdEdit.minimumPressDuration = 2.0; //seconds
+    //    holdEdit.delegate = self;
+    [self.tableView addGestureRecognizer:holdEdit];
+    [holdEdit release];
+    
+
+
 }
 
-
-- (void)viewWillAppear:(BOOL)animated {
-    
+-(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    
     [self.tableView reloadData];
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    editProductCellViewController *editProductView =[[editProductCellViewController alloc]
+                                              initWithNibName:@"editProductCellViewController"
+                                                     bundle:nil];
+    
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
+        
+        editProductView.compList = self.companyProducts;
+        
+        UITableView* tableView = (UITableView*)self.view;
+        CGPoint touchPoint = [gestureRecognizer locationInView:self.view];
+        NSIndexPath* row = [tableView indexPathForRowAtPoint:touchPoint];
+        
+        if (row != nil) {
+            editProductView.indexPath = row;
+        }
+        
+        [self.navigationController pushViewController:editProductView animated:YES];
+
+    }
+
+}
+
+
+
+
+-(void)add:(id)sender
+{
+    NSLog(@"Add button pressed");
+    addProductsViewController *addProdView = [[addProductsViewController alloc] initWithNibName:@"addProductsViewController" bundle:nil];
+
+    addProdView.company = self.company;
+    
+    [self.navigationController pushViewController:addProdView animated:YES];
+
     
     
 }
- 
 
 - (void)didReceiveMemoryWarning
 {
@@ -79,8 +138,7 @@
     }
     
     // Configure the cell...
-    Product *productN = [self.companyProducts objectAtIndex:[indexPath row]];
-   // Product *productP = [self.pics objectAtIndex:[indexPath row]];
+    Product *productN = [self.company.products objectAtIndex:[indexPath row]];
     
     cell.textLabel.text = productN.productName;
     cell.imageView.image = [UIImage imageNamed: productN.productLogo];
@@ -108,7 +166,7 @@
         
 
         [self.companyProducts removeObjectAtIndex:indexPath.row];
-        [self.pics removeObjectAtIndex:indexPath.row];
+//        [self.pics removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         

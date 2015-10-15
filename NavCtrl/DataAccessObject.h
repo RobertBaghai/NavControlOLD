@@ -12,6 +12,11 @@
 @interface DataAccessObject : NSObject
 
 -(void)getCompaniesAndProducts;
+
 @property (retain, nonatomic) NSMutableArray *companyList;
+
+@property (retain, nonatomic) NSMutableArray *stockPrices;
+
+-(void)updateStockPrices;
 
 @end

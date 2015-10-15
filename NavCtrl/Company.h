@@ -12,8 +12,14 @@
 
 @property (nonatomic,retain) NSString *companyName;
 @property (nonatomic,retain) NSString *companyLogo;
+@property (nonatomic,retain) NSString *stockCode;
 
 
 @property (nonatomic,retain) NSMutableArray *products;
+
+@property (nonatomic,retain) NSString *stockPrice;
+
+
+
 
 @end

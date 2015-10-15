@@ -11,11 +11,12 @@
 @implementation DataAccessObject
 
 -(void)getCompaniesAndProducts{
-
+    
 Company *apple =[[Company alloc] init];
 apple.companyName = @"Apple mobile devices";
 apple.companyLogo = @"apple.png";
-
+apple.stockCode = @"AAPL";
+    
 Product *iPad =[[Product alloc] init];
 iPad.productName = @"iPad";
 iPad.productLogo = @"ipad.png";
@@ -32,18 +33,19 @@ iPhone.productLogo = @"iphone.png";
 iPhone.productURL = @"http://www.apple.com/iphone/";
 
 
-apple.products =  [[NSMutableArray alloc] initWithObjects:iPad,iPod, iPhone, nil];
+apple.products =  [[NSMutableArray alloc] initWithObjects:iPad, iPod, iPhone, nil];
 
 
 Company *samsung =[[Company alloc] init];
 samsung.companyName = @"Samsung mobile devices";
 samsung.companyLogo = @"samsung.png";
+samsung.stockCode = @"SSUN.DE";
 
 
 Product *galaxy =[[Product alloc] init];
 galaxy.productName = @"Galaxy S5";
 galaxy.productLogo = @"s5.png";
-galaxy.productURL = @"https://www.cricketwireless.com/cell-phones/smartphones/samsung-galaxy-s5.html";
+galaxy.productURL = @"http://www.samsung.com/global/microsite/galaxys5/features.html";
 
 Product *note =[[Product alloc] init];
 note.productName = @"Galaxy Note";
@@ -61,7 +63,9 @@ samsung.products = [[NSMutableArray alloc] initWithObjects:galaxy, note, tab, ni
 Company *htc =[[Company alloc] init];
 htc.companyName = @"HTC mobile devices";
 htc.companyLogo = @"htc.png";
+htc.stockCode= @"GOOG";
 
+    
 Product *htcOne =[[Product alloc] init];
 htcOne.productName = @"HTC One M9";
 htcOne.productLogo = @"htcone.png";
@@ -84,7 +88,9 @@ htc.products = [[NSMutableArray alloc] initWithObjects: htcOne, nexus, camera, n
 Company *lg = [[Company alloc] init];
 lg.companyName = @"LG mobile devices";
 lg.companyLogo = @"lg.png";
+lg.stockCode = @"LGLG.DE";
 
+    
 Product *g4 =[[Product alloc] init];
 g4.productName = @"LG G4";
 g4.productLogo = @"lgg4.png";
@@ -103,8 +109,16 @@ watch.productURL = @"https://www.lg.com/us/smart-watches/lg-W150-lg-watch-urbane
 lg.products = [[NSMutableArray alloc] initWithObjects: g4, lgTab, watch ,nil];
 
 
-self.companyList = [NSMutableArray arrayWithArray:@[apple, samsung, htc, lg]];
+    self.companyList = [NSMutableArray arrayWithArray:@[apple, samsung, htc, lg]];
+//    self.companyList = [NSMutableArray arrayWithArray:@[apple, samsung]];
     
 }
+
+-(void)updateStockPrices {
+    for (int i = 0; i < self.companyList.count; i++) {
+        [self.companyList[i] setStockPrice:self.stockPrices[i]];
+    }
+}
+
 
 @end
