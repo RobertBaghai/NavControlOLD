@@ -8,7 +8,7 @@
 #import "Product.h"
 #import <Foundation/Foundation.h>
 
-@interface Company : NSObject
+@interface Company : NSObject<NSCoding>
 
 @property (nonatomic,retain) NSString *companyName;
 @property (nonatomic,retain) NSString *companyLogo;
@@ -20,6 +20,6 @@
 @property (nonatomic,retain) NSString *stockPrice;
 
 
-
+//- (id)initWithCompanyName:(NSString *)companyName stockCode:(NSString *)stockCode;
 
 @end

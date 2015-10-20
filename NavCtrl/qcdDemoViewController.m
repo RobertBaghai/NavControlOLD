@@ -45,7 +45,6 @@
                                target:self
                                action:@selector(refresh:)];
     
-    
     UIImage *addImage = [UIImage imageNamed:@"itemAdd"];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:addImage style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
     
@@ -54,13 +53,14 @@
     
         [refreshButton release];
 
-    static dispatch_once_t p = 0;
-
-    dispatch_once(&p, ^{
-        
-    self.dao = [[DataAccessObject alloc] init];
-    
-    });
+//    static dispatch_once_t p = 0;
+//
+//    dispatch_once(&p, ^{
+//        
+//    self.dao = [[DataAccessObject alloc] init];
+//    
+//    });
+    _dao = [DataAccessObject sharedInstance];
     
     [self.dao getCompaniesAndProducts];
     
@@ -89,6 +89,7 @@
     
     [self loadStockPrices];
     
+    
 }
 
 
@@ -110,6 +111,7 @@
         }
         
     }
+    
     str = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=%@&f=a",str];
     
     [[ session dataTaskWithURL:[NSURL URLWithString:str]
@@ -137,7 +139,6 @@
                  }
              } ]resume];
     
-    
 }
 
 
@@ -159,7 +160,6 @@
         
         
         [self.navigationController pushViewController:editView animated:YES];
-        
     }
 }
 
@@ -168,7 +168,6 @@
 {
     [self.navigationController pushViewController:self.childVC animated:YES];
     [self.navigationController popViewControllerAnimated:YES];
-   // [self.tableView reloadData];
 }
 
 -(void)add:(id)sender
@@ -215,19 +214,23 @@
     
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
+    // Configure the cell...
+    
     Company *companyN = [self.companyList objectAtIndex:[indexPath row] ];
+    
     NSString *stockPrice = nil;
     if (companyN.stockPrice == nil) {
         stockPrice = @"   No Stock Info Available";
     }else{
-        stockPrice = [@"                Current Stock Price:    " stringByAppendingString:companyN.stockPrice];
+        stockPrice = [@"                Current Stock Price:    "
+                      stringByAppendingString:companyN.stockPrice];
     }
     
     cell.textLabel.text = [companyN.companyName stringByAppendingString:stockPrice];;
     cell.imageView.image = [UIImage imageNamed: companyN.companyLogo];
+    [self.dao save];
 
     
-    // Configure the cell...
     
 //    NSString * imageName = [self.companyPics objectAtIndex:[indexPath row]];
 //    UIImage* theImage = [UIImage imageNamed:imageName];
@@ -260,6 +263,9 @@
 
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        [self.dao save];
+
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -278,11 +284,21 @@
     NSUInteger fromRow = [fromIndexPath row];
     NSUInteger toRow = [toIndexPath row];
     
-    NSString *stringToMove = [self.companyList objectAtIndex:fromRow];
+//    Company *companyFrom = [self.companyList objectAtIndex:fromRow];
+//    [companyFrom retain];
+//    
+//    [self.companyList removeObjectAtIndex:fromRow];
+//
+//    [self.companyList insertObject:companyFrom atIndex:toRow];
+//    
+//    
+//    [companyFrom release];
     
-    [self.companyList removeObjectAtIndex:fromRow];
-    [self.companyList insertObject:stringToMove atIndex:toRow];
+    [self.companyList exchangeObjectAtIndex:fromRow withObjectAtIndex:toRow];
+ 
     
+    [self.dao save];
+
 }
 
 

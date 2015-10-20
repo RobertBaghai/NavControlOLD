@@ -17,6 +17,18 @@
 
 @property (retain, nonatomic) NSMutableArray *stockPrices;
 
+@property (strong, nonatomic) NSString * plistPath;
+
+
 -(void)updateStockPrices;
+
+-(void) unarchiveSavedObjectsInPath: (NSString*) filepath;
+-(void) createAndArchiveObjectsAtPath:(NSString *)filepath;
+-(void)createCompaniesAndProducts;
+-(void)save;
+
+
++(instancetype)sharedInstance;
+
 
 @end

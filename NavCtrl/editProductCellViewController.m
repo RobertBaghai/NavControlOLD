@@ -40,14 +40,16 @@
     NSString *editProductName = self.productNameText.text;
     NSString *editProductUrl = self. productUrlText.text;
     NSString *editProductLogo = @"yourlogo.png";
+    
     Product *prod = [self.compList objectAtIndex:self.indexPath.row];
     
     prod.productName = editProductName;
     prod.productURL = editProductUrl;
     prod.productLogo = editProductLogo;
 
-    
     [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.dao save];
 
 }
 

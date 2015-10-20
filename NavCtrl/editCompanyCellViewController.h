@@ -32,4 +32,7 @@
 @property (retain, nonatomic) IBOutlet UITextField *editStockCodeText;
 
 
+@property (nonatomic, retain) DataAccessObject *dao;
+
+
 @end

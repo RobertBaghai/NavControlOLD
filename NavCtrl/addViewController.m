@@ -50,21 +50,25 @@
     
     if([self.textStockCode.text isEqualToString:@""]){
         comp.stockCode = @"N/A";
-    }else{
+    }else
+    {
     comp.stockCode = compStock;
     }
     
     
     comp.products = [[NSMutableArray alloc]init];
+
     
     
     [self.companyList addObject:comp];
-    
-    
 
     [self.navigationController popViewControllerAnimated:YES];
+    [self.dao save];
+
 
 }
+
+
 
 - (void)dealloc {
     [_textTitle release];

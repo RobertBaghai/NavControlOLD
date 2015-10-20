@@ -50,10 +50,12 @@
     prod.productURL = prodURL ;
 
     [self.company.products addObject:prod];
+
     
     [self.navigationController popViewControllerAnimated:YES];
     
-    
+    [self.dao save];
+
     
 }
 

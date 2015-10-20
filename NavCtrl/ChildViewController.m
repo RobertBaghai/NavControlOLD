@@ -87,7 +87,6 @@
         }
         
         [self.navigationController pushViewController:editProductView animated:YES];
-
     }
 
 }
@@ -142,7 +141,8 @@
     
     cell.textLabel.text = productN.productName;
     cell.imageView.image = [UIImage imageNamed: productN.productLogo];
-   
+    [self.dao save];
+
 
     return cell;
 }
@@ -169,9 +169,10 @@
 //        [self.pics removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+
         [tableView beginUpdates];
         [tableView endUpdates];
+        [self.dao save];
 
         
     }
@@ -189,11 +190,18 @@
     NSUInteger fromRow = [fromIndexPath row];
     NSUInteger toRow = [toIndexPath row];
     
-    NSString *stringToMoveOne = [self.companyProducts objectAtIndex:fromRow];
-    [self.companyProducts removeObjectAtIndex:fromRow];
-    [self.companyProducts insertObject:stringToMoveOne atIndex:toRow];
-    
-    
+//    Product *prodToMoveOne = [self.companyProducts objectAtIndex:fromRow];
+//    [prodToMoveOne retain];
+//
+//    [self.companyProducts removeObjectAtIndex:fromRow];
+//    [self.companyProducts insertObject:prodToMoveOne atIndex:toRow];
+//    
+//    [prodToMoveOne release];
+
+    [self.companyProducts exchangeObjectAtIndex:fromRow withObjectAtIndex:toRow];
+    [self.dao save];
+
+
 }
 
 
@@ -213,9 +221,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    
     UrlViewController *urlViewController = [[UrlViewController alloc] initWithNibName:@"UrlViewController" bundle:nil];
 
     // Pass the selected object to the new view controller.
@@ -228,8 +233,10 @@
     
     // Push the view controller.
     [self.navigationController pushViewController:urlViewController animated:YES];
+    [self.dao save];
+
 }
- 
+
 
 
 @end

@@ -61,10 +61,11 @@
     {
     comp.stockCode = editCompStock;
     }
-    
+
     [self.navigationController popViewControllerAnimated:YES];
 
-    
+    [self.dao save];
+
 }
 
 

@@ -28,5 +28,6 @@
 @property(nonatomic,strong)NSIndexPath *indexPath;
 
 @property (retain, nonatomic) NSMutableArray *compList;
+@property (nonatomic, retain) DataAccessObject *dao;
 
 @end

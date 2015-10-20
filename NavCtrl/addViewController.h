@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "qcdDemoViewController.h"
 #import "DataAccessObject.h"
+#import "Company.h"
 
 @interface addViewController : UIViewController
 
@@ -20,6 +21,10 @@
 
 @property (retain, nonatomic) IBOutlet UITextField *textStockCode;
 
+@property (retain, nonatomic) NSString *userComp;
+
+
+@property (nonatomic, retain) DataAccessObject *dao;
 
 
 - (IBAction)submitInfo:(id)sender;

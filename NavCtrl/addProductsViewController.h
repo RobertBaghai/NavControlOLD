@@ -26,4 +26,7 @@
 
 - (IBAction)submitProduct:(id)sender;
 
+
+@property (nonatomic, retain) DataAccessObject *dao;
+
 @end
