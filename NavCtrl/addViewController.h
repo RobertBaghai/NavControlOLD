@@ -9,19 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "qcdDemoViewController.h"
 #import "DataAccessObject.h"
-
+#import "Company.h"
 @interface addViewController : UIViewController
 
-@property (retain, nonatomic) IBOutlet UILabel *textTitle;
-
+@property (strong, nonatomic) IBOutlet UILabel *textTitle;
 @property (retain, nonatomic) IBOutlet UITextField *textName;
-
-@property (retain, nonatomic) NSMutableArray *companyList;
-
+@property (strong, nonatomic) NSMutableArray *companyList;
 @property (retain, nonatomic) IBOutlet UITextField *textStockCode;
-
-
-
 - (IBAction)submitInfo:(id)sender;
+@property (strong, nonatomic) DataAccessObject *dao;
 
 @end

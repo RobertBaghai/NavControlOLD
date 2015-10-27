@@ -16,9 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.title = @"Customize Your Companies!";
-    
+    _dao = [DataAccessObject sharedInstance];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -28,43 +26,40 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 - (IBAction)makeChangesButton:(id)sender {
     
     
-   NSString *editCompanyCell = self.createdCompanyName.text;
+    NSString *editCompanyCell = self.createdCompanyName.text;
     NSString *editCompanyPic = @"yourlogo.png";
-    
     NSString *editCompStock = self.editStockCodeText.text;
-    
-    NSLog(@"%ld",self.indexPath.row);
+    NSLog(@"%ld",(long)self.indexPath.row);
     
     
     Company *comp = [self.compList objectAtIndex:self.indexPath.row];
-    
     comp.companyName = editCompanyCell;
-    
     comp.companyLogo = editCompanyPic;
     
     if([self.editStockCodeText.text isEqualToString:@""]){
         comp.stockCode = @"N/A";
+        self.editStockCodeText.text = @"N/A";
     }else
     {
-    comp.stockCode = editCompStock;
+        comp.stockCode = editCompStock;
     }
     
+    NSString *editStatement = [NSString stringWithFormat:@"UPDATE Company SET c_name = '%@' , c_logo = '%@', c_stockCode = '%@' WHERE id = %d",editCompanyCell,editCompanyPic,self.editStockCodeText.text,[comp.companyID intValue]];
+    [self.dao editData:editStatement];
     [self.navigationController popViewControllerAnimated:YES];
-
-    
 }
 
 

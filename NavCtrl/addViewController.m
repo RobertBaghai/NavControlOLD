@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _dao = [DataAccessObject sharedInstance];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -39,31 +40,35 @@
 
     NSString *compName = self.textName.text;
     NSString *compLogo = @"defaultCLogo.png";
-    
-    
     NSString *compStock = self.textStockCode.text;
    
     Company *comp = [[Company alloc] init];
     comp.companyName = compName;
     comp.companyLogo = compLogo;
-   
     
     if([self.textStockCode.text isEqualToString:@""]){
         comp.stockCode = @"N/A";
+        self.textStockCode.text = @"N/A";
     }else{
     comp.stockCode = compStock;
     }
     
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    comp.products = array;
+    [array release];
     
-    comp.products = [[NSMutableArray alloc]init];
+    int position = [self.dao fetchPosition];
     
     
+    NSLog(@"%d",position);
+    comp->c_position = position;
     [self.companyList addObject:comp];
+    [self.dao addData:[NSString stringWithFormat:
+                       @"INSERT INTO Company (c_name,c_logo,c_stockCode,c_position) VALUES ('%s','%s','%@',%d)",
+                       [comp.companyName UTF8String],[comp.companyLogo UTF8String], self.textStockCode.text,comp->c_position]];
     
-    
-
     [self.navigationController popViewControllerAnimated:YES];
-
+    [comp release];
 }
 
 - (void)dealloc {

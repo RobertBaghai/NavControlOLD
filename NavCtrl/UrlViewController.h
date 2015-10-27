@@ -12,15 +12,10 @@
 @interface UrlViewController : UIViewController
 
 @property (retain, nonatomic) IBOutlet UIView *UrlView;
-
-
 @property (retain, nonatomic) IBOutlet UIWebView *webView;
-
-
 -(void)setURL:(NSString *)url;
-
-@property (retain, nonatomic) NSURL *myURL;
-@property (retain,nonatomic) WKWebView *wkWeb;
+@property (strong, nonatomic) NSURL *myURL;
+@property (strong, nonatomic) WKWebView *wkWeb;
 
 
 @end

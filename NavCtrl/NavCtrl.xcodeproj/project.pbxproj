@@ -8,45 +8,47 @@
 
 /* Begin PBXBuildFile section */
 		4328045D1BC1F08E00B99E20 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4328045C1BC1F08E00B99E20 /* WebKit.framework */; };
-		434AF7361BC8203A00FA27D1 /* defaultCLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 434AF7351BC8203A00FA27D1 /* defaultCLogo.png */; settings = {ASSET_TAGS = (); }; };
-		434AF73A1BC8243100FA27D1 /* addProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434AF7381BC8243100FA27D1 /* addProductsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		434AF73B1BC8243100FA27D1 /* addProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 434AF7391BC8243100FA27D1 /* addProductsViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		434AF73D1BC82C4100FA27D1 /* prodLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 434AF73C1BC82C4100FA27D1 /* prodLogo.png */; settings = {ASSET_TAGS = (); }; };
-		434AF7431BC83B3700FA27D1 /* settings.gif in Resources */ = {isa = PBXBuildFile; fileRef = 434AF7421BC83B3700FA27D1 /* settings.gif */; settings = {ASSET_TAGS = (); }; };
-		435086151BBED0070066054A /* UrlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435086131BBED0070066054A /* UrlViewController.m */; settings = {ASSET_TAGS = (); }; };
-		435086161BBED0080066054A /* UrlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435086141BBED0070066054A /* UrlViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		43751AB81BCD7A5B001ABB93 /* yourlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 43751AB71BCD7A5B001ABB93 /* yourlogo.png */; settings = {ASSET_TAGS = (); }; };
-		4380C9021BC41ADD00492970 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380C9011BC41ADD00492970 /* Company.m */; settings = {ASSET_TAGS = (); }; };
-		4380C9051BC41AF500492970 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380C9041BC41AF500492970 /* Product.m */; settings = {ASSET_TAGS = (); }; };
-		4386403E1BC593AE0069937A /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4386403D1BC593AE0069937A /* DataAccessObject.m */; settings = {ASSET_TAGS = (); }; };
-		43BB99CD1BBDC51100AB7F78 /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99C91BBDC51100AB7F78 /* apple.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99CE1BBDC51100AB7F78 /* htc.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CA1BBDC51100AB7F78 /* htc.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99CF1BBDC51100AB7F78 /* lg.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CB1BBDC51100AB7F78 /* lg.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99D01BBDC51100AB7F78 /* samsung.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CC1BBDC51100AB7F78 /* samsung.png */; settings = {ASSET_TAGS = (); }; };
+		434AF7361BC8203A00FA27D1 /* defaultCLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 434AF7351BC8203A00FA27D1 /* defaultCLogo.png */; };
+		434AF73A1BC8243100FA27D1 /* addProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434AF7381BC8243100FA27D1 /* addProductsViewController.m */; };
+		434AF73B1BC8243100FA27D1 /* addProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 434AF7391BC8243100FA27D1 /* addProductsViewController.xib */; };
+		434AF73D1BC82C4100FA27D1 /* prodLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 434AF73C1BC82C4100FA27D1 /* prodLogo.png */; };
+		434AF7431BC83B3700FA27D1 /* settings.gif in Resources */ = {isa = PBXBuildFile; fileRef = 434AF7421BC83B3700FA27D1 /* settings.gif */; };
+		435086151BBED0070066054A /* UrlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435086131BBED0070066054A /* UrlViewController.m */; };
+		435086161BBED0080066054A /* UrlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435086141BBED0070066054A /* UrlViewController.xib */; };
+		435566281BD83902009BDABB /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 435566271BD83902009BDABB /* libsqlite3.0.tbd */; };
+		43751AB81BCD7A5B001ABB93 /* yourlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 43751AB71BCD7A5B001ABB93 /* yourlogo.png */; };
+		4380C9021BC41ADD00492970 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380C9011BC41ADD00492970 /* Company.m */; };
+		4380C9051BC41AF500492970 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380C9041BC41AF500492970 /* Product.m */; };
+		4386403E1BC593AE0069937A /* DataAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4386403D1BC593AE0069937A /* DataAccessObject.m */; };
+		43BB99CD1BBDC51100AB7F78 /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99C91BBDC51100AB7F78 /* apple.png */; };
+		43BB99CE1BBDC51100AB7F78 /* htc.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CA1BBDC51100AB7F78 /* htc.png */; };
+		43BB99CF1BBDC51100AB7F78 /* lg.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CB1BBDC51100AB7F78 /* lg.png */; };
+		43BB99D01BBDC51100AB7F78 /* samsung.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CC1BBDC51100AB7F78 /* samsung.png */; };
 		43BB99D11BBDCC7E00AB7F78 /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99C91BBDC51100AB7F78 /* apple.png */; };
 		43BB99D21BBDCC7E00AB7F78 /* htc.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CA1BBDC51100AB7F78 /* htc.png */; };
 		43BB99D31BBDCC7E00AB7F78 /* lg.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CB1BBDC51100AB7F78 /* lg.png */; };
 		43BB99D41BBDCC7E00AB7F78 /* samsung.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99CC1BBDC51100AB7F78 /* samsung.png */; };
-		43BB99E21BBDDA1100AB7F78 /* htcone.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D61BBDDA1100AB7F78 /* htcone.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E31BBDDA1100AB7F78 /* ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D71BBDDA1100AB7F78 /* ipad.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E41BBDDA1100AB7F78 /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D81BBDDA1100AB7F78 /* iphone.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E51BBDDA1100AB7F78 /* ipodtouch.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D91BBDDA1100AB7F78 /* ipodtouch.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E61BBDDA1100AB7F78 /* lgg4.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DA1BBDDA1100AB7F78 /* lgg4.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E71BBDDA1100AB7F78 /* lgtablet.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DB1BBDDA1100AB7F78 /* lgtablet.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E81BBDDA1100AB7F78 /* lgwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DC1BBDDA1100AB7F78 /* lgwatch.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99E91BBDDA1100AB7F78 /* nexus.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DD1BBDDA1100AB7F78 /* nexus.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99EA1BBDDA1100AB7F78 /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DE1BBDDA1100AB7F78 /* note.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99EB1BBDDA1100AB7F78 /* recamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DF1BBDDA1100AB7F78 /* recamera.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99EC1BBDDA1100AB7F78 /* s5.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99E01BBDDA1100AB7F78 /* s5.png */; settings = {ASSET_TAGS = (); }; };
-		43BB99ED1BBDDA1100AB7F78 /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99E11BBDDA1100AB7F78 /* tab.png */; settings = {ASSET_TAGS = (); }; };
-		43C52AE21BCC0F910094C226 /* editProductCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C52AE01BCC0F910094C226 /* editProductCellViewController.m */; settings = {ASSET_TAGS = (); }; };
-		43C52AE31BCC0F910094C226 /* editProductCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C52AE11BCC0F910094C226 /* editProductCellViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		43F8B7AC1BCB1DA10053ED15 /* editCompanyCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F8B7AA1BCB1DA10053ED15 /* editCompanyCellViewController.m */; settings = {ASSET_TAGS = (); }; };
-		43F8B7AD1BCB1DA10053ED15 /* editCompanyCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F8B7AB1BCB1DA10053ED15 /* editCompanyCellViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		43FC94901BC6FBB30049A81A /* addButoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FC948F1BC6FBB30049A81A /* addButoon.png */; settings = {ASSET_TAGS = (); }; };
-		43FC94921BC6FE9F0049A81A /* itemAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FC94911BC6FE9F0049A81A /* itemAdd.png */; settings = {ASSET_TAGS = (); }; };
-		43FC94961BC70FA70049A81A /* addViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FC94941BC70FA70049A81A /* addViewController.m */; settings = {ASSET_TAGS = (); }; };
-		43FC94971BC70FA70049A81A /* addViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43FC94951BC70FA70049A81A /* addViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		43BB99E21BBDDA1100AB7F78 /* htcone.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D61BBDDA1100AB7F78 /* htcone.png */; };
+		43BB99E31BBDDA1100AB7F78 /* ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D71BBDDA1100AB7F78 /* ipad.png */; };
+		43BB99E41BBDDA1100AB7F78 /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D81BBDDA1100AB7F78 /* iphone.png */; };
+		43BB99E51BBDDA1100AB7F78 /* ipodtouch.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99D91BBDDA1100AB7F78 /* ipodtouch.png */; };
+		43BB99E61BBDDA1100AB7F78 /* lgg4.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DA1BBDDA1100AB7F78 /* lgg4.png */; };
+		43BB99E71BBDDA1100AB7F78 /* lgtablet.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DB1BBDDA1100AB7F78 /* lgtablet.png */; };
+		43BB99E81BBDDA1100AB7F78 /* lgwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DC1BBDDA1100AB7F78 /* lgwatch.png */; };
+		43BB99E91BBDDA1100AB7F78 /* nexus.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DD1BBDDA1100AB7F78 /* nexus.png */; };
+		43BB99EA1BBDDA1100AB7F78 /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DE1BBDDA1100AB7F78 /* note.png */; };
+		43BB99EB1BBDDA1100AB7F78 /* recamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99DF1BBDDA1100AB7F78 /* recamera.png */; };
+		43BB99EC1BBDDA1100AB7F78 /* s5.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99E01BBDDA1100AB7F78 /* s5.png */; };
+		43BB99ED1BBDDA1100AB7F78 /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99E11BBDDA1100AB7F78 /* tab.png */; };
+		43C52AE21BCC0F910094C226 /* editProductCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C52AE01BCC0F910094C226 /* editProductCellViewController.m */; };
+		43C52AE31BCC0F910094C226 /* editProductCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C52AE11BCC0F910094C226 /* editProductCellViewController.xib */; };
+		43C6FD731BDF1625005E96BC /* NavControllerDataBase.db in Resources */ = {isa = PBXBuildFile; fileRef = 43C6FD721BDF1625005E96BC /* NavControllerDataBase.db */; };
+		43F8B7AC1BCB1DA10053ED15 /* editCompanyCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F8B7AA1BCB1DA10053ED15 /* editCompanyCellViewController.m */; };
+		43F8B7AD1BCB1DA10053ED15 /* editCompanyCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F8B7AB1BCB1DA10053ED15 /* editCompanyCellViewController.xib */; };
+		43FC94901BC6FBB30049A81A /* addButoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FC948F1BC6FBB30049A81A /* addButoon.png */; };
+		43FC94921BC6FE9F0049A81A /* itemAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FC94911BC6FE9F0049A81A /* itemAdd.png */; };
+		43FC94961BC70FA70049A81A /* addViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FC94941BC70FA70049A81A /* addViewController.m */; };
+		43FC94971BC70FA70049A81A /* addViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43FC94951BC70FA70049A81A /* addViewController.xib */; };
 		48A656B518163BF200746D36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B418163BF200746D36 /* Foundation.framework */; };
 		48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B618163BF200746D36 /* CoreGraphics.framework */; };
 		48A656B918163BF200746D36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B818163BF200746D36 /* UIKit.framework */; };
@@ -104,6 +106,7 @@
 		435086121BBED0070066054A /* UrlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlViewController.h; sourceTree = "<group>"; };
 		435086131BBED0070066054A /* UrlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlViewController.m; sourceTree = "<group>"; };
 		435086141BBED0070066054A /* UrlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UrlViewController.xib; sourceTree = "<group>"; };
+		435566271BD83902009BDABB /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		43751AB71BCD7A5B001ABB93 /* yourlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yourlogo.png; sourceTree = "<group>"; };
 		4380C9001BC41ADD00492970 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		4380C9011BC41ADD00492970 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 		43C52ADF1BCC0F910094C226 /* editProductCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editProductCellViewController.h; sourceTree = "<group>"; };
 		43C52AE01BCC0F910094C226 /* editProductCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editProductCellViewController.m; sourceTree = "<group>"; };
 		43C52AE11BCC0F910094C226 /* editProductCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = editProductCellViewController.xib; sourceTree = "<group>"; };
+		43C6FD721BDF1625005E96BC /* NavControllerDataBase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = NavControllerDataBase.db; sourceTree = "<group>"; };
 		43F8B7A91BCB1DA10053ED15 /* editCompanyCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editCompanyCellViewController.h; sourceTree = "<group>"; };
 		43F8B7AA1BCB1DA10053ED15 /* editCompanyCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editCompanyCellViewController.m; sourceTree = "<group>"; };
 		43F8B7AB1BCB1DA10053ED15 /* editCompanyCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = editCompanyCellViewController.xib; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435566281BD83902009BDABB /* libsqlite3.0.tbd in Frameworks */,
 				4328045D1BC1F08E00B99E20 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
 				48A656B918163BF200746D36 /* UIKit.framework in Frameworks */,
@@ -310,6 +315,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				435566271BD83902009BDABB /* libsqlite3.0.tbd */,
 				4331E13F1BCFF734009CFB2E /* UIKit+AFNetworking */,
 				4328045C1BC1F08E00B99E20 /* WebKit.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
@@ -334,6 +340,7 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				43C6FD721BDF1625005E96BC /* NavControllerDataBase.db */,
 				43BB99D51BBDDA1100AB7F78 /* productPics */,
 				43BB99C91BBDC51100AB7F78 /* apple.png */,
 				43BB99CA1BBDC51100AB7F78 /* htc.png */,
@@ -452,6 +459,7 @@
 				43BB99E81BBDDA1100AB7F78 /* lgwatch.png in Resources */,
 				43BB99ED1BBDDA1100AB7F78 /* tab.png in Resources */,
 				43BB99E71BBDDA1100AB7F78 /* lgtablet.png in Resources */,
+				43C6FD731BDF1625005E96BC /* NavControllerDataBase.db in Resources */,
 				43BB99D31BBDCC7E00AB7F78 /* lg.png in Resources */,
 				435086161BBED0080066054A /* UrlViewController.xib in Resources */,
 				43BB99D41BBDCC7E00AB7F78 /* samsung.png in Resources */,

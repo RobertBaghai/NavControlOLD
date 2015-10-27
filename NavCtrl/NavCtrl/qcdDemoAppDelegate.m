@@ -16,19 +16,18 @@
     
     // Override point for customization after application launch.
     UIViewController *rootController =
-    [[qcdDemoViewController alloc]
-     initWithNibName:@"qcdDemoViewController" bundle:nil];
+    [[[qcdDemoViewController alloc]
+     initWithNibName:@"qcdDemoViewController" bundle:nil] autorelease];
     
-    self.navigationController = [[UINavigationController alloc]
-                            initWithRootViewController:rootController];
+    self.navigationController = [[[UINavigationController alloc]
+                            initWithRootViewController:rootController] autorelease];
     
-    self.window = [[UIWindow alloc]
-                   initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[[UIWindow alloc]
+                   initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 //  self.window addSubview:self.navigationController.view];
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     return YES;
-    
     
     /*
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -65,5 +64,11 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+//-(void)dealloc
+//{
+//    [_navigationController release];
+//    [_window release];
+//    [super dealloc];
+//}
 
 @end

@@ -13,9 +13,14 @@
 @end
 
 @implementation addProductsViewController
+{
+    sqlite3_stmt *stmt;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _dao = [DataAccessObject sharedInstance];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -37,24 +42,19 @@
 
 - (IBAction)submitProduct:(id)sender {
     
-
-    
     NSString *prodName = self.productText.text;
     NSString *prodLogo = @"prodLogo.png";
     NSString *prodURL = self.productUrlText.text;
-    
     Product *prod = [[Product alloc] init];
-    
     prod.productName = prodName;
     prod.productLogo = prodLogo;
     prod.productURL = prodURL ;
 
+    [self.dao addData:[NSString stringWithFormat:@"INSERT INTO Product (p_name,p_logo,p_url,company_id) VALUES ('%s','%s','%s','%@')",[prod.productName UTF8String],[prod.productLogo UTF8String], [prod.productURL UTF8String], self.company.companyID]];
     [self.company.products addObject:prod];
-    
     [self.navigationController popViewControllerAnimated:YES];
-    
-    
-    
+    [prod release];
+
 }
 
 - (void)dealloc {

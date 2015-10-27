@@ -9,15 +9,18 @@
 #import <Foundation/Foundation.h>
 
 @interface Company : NSObject
+{
+    @public
+    int c_position;
+}
 
-@property (nonatomic,retain) NSString *companyName;
-@property (nonatomic,retain) NSString *companyLogo;
-@property (nonatomic,retain) NSString *stockCode;
+@property (strong, nonatomic) NSString *companyName;
+@property (strong, nonatomic) NSString *companyLogo;
+@property (strong, nonatomic) NSString *stockCode;
+@property (strong, nonatomic) NSMutableArray *products;
+@property (strong, nonatomic) NSString *stockPrice;
+@property (strong, nonatomic) NSString *companyID;
 
-
-@property (nonatomic,retain) NSMutableArray *products;
-
-@property (nonatomic,retain) NSString *stockPrice;
 
 
 

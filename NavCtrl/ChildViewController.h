@@ -7,17 +7,16 @@
 //
 #import "Company.h"
 #import <UIKit/UIKit.h>
+#import "DataAccessObject.h"
 
 @interface ChildViewController : UITableViewController
 
-@property (nonatomic, retain) NSMutableArray *companyProducts;
-
+@property (strong, nonatomic) NSMutableArray *companyProducts;
 @property (strong, nonatomic) Company *company;
-
-
-@property (nonatomic, retain) NSMutableArray *pics;
-
+@property (strong, nonatomic) NSMutableArray *pics;
+@property (strong, nonatomic) DataAccessObject *dao;
 -(void)add:(id)sender;
+
 
 
 @end

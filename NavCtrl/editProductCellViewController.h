@@ -14,19 +14,14 @@
 @interface editProductCellViewController : UIViewController
 
 @property (retain, nonatomic) IBOutlet UILabel *editProductTitle;
-
 @property (retain, nonatomic) IBOutlet UILabel *editProductNameLabel;
-
 @property (retain, nonatomic) IBOutlet UITextField *productNameText;
-
 @property (retain, nonatomic) IBOutlet UILabel *editProductUrlLabel;
-
 @property (retain, nonatomic) IBOutlet UITextField *productUrlText;
-
+@property (nonatomic,strong) NSIndexPath *indexPath;
+@property (strong, nonatomic) NSMutableArray *compList;
+@property (strong, nonatomic) DataAccessObject *dao;
 - (IBAction)makeProductChanges:(id)sender;
 
-@property(nonatomic,strong)NSIndexPath *indexPath;
-
-@property (retain, nonatomic) NSMutableArray *compList;
 
 @end

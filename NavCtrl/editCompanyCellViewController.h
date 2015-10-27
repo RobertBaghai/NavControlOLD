@@ -15,20 +15,13 @@
 
 
 @property (retain, nonatomic) IBOutlet UILabel *createdCompNameTitle;
-
 @property (retain, nonatomic) IBOutlet UITextField *createdCompanyName;
-
-@property(nonatomic,strong)NSIndexPath *indexPath;
-
-
-
-- (IBAction)makeChangesButton:(id)sender;
-
+@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) NSMutableArray *compList;
 @property (strong, nonatomic) Company * company;
-
-@property (retain, nonatomic) NSMutableArray *compList;
+@property (strong, nonatomic) DataAccessObject *dao;
+- (IBAction)makeChangesButton:(id)sender;
 @property (retain, nonatomic) IBOutlet UILabel *compViewTitle;
-
 @property (retain, nonatomic) IBOutlet UITextField *editStockCodeText;
 
 

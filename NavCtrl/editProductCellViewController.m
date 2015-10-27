@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _dao = [DataAccessObject sharedInstance];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -41,12 +42,12 @@
     NSString *editProductUrl = self. productUrlText.text;
     NSString *editProductLogo = @"yourlogo.png";
     Product *prod = [self.compList objectAtIndex:self.indexPath.row];
-    
     prod.productName = editProductName;
     prod.productURL = editProductUrl;
     prod.productLogo = editProductLogo;
-
     
+    NSString *editStatement = [NSString stringWithFormat:@"UPDATE Product SET p_name = '%@' , p_logo = '%@', p_url = '%@' WHERE id = %d",editProductName,editProductLogo,editProductUrl,[prod.productID intValue]];
+    [self.dao editData:editStatement];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

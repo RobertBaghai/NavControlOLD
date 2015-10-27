@@ -14,15 +14,12 @@
 @interface addProductsViewController : UIViewController
 
 @property (retain, nonatomic) IBOutlet UILabel *productTitle;
-
 @property (retain, nonatomic) IBOutlet UITextField *productText;
-
 @property (retain, nonatomic) IBOutlet UILabel *productUrlTitle;
-
 @property (retain, nonatomic) IBOutlet UITextField *productUrlText;
-
-@property (retain, nonatomic) NSMutableArray *companyList;
-@property (strong, nonatomic) Company * company;
+@property (strong, nonatomic) NSMutableArray *companyList;
+@property (strong, nonatomic) Company *company;
+@property (strong, nonatomic) DataAccessObject *dao;
 
 - (IBAction)submitProduct:(id)sender;
 
