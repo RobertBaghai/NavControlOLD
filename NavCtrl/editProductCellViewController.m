@@ -58,6 +58,10 @@
     [_productNameText release];
     [_editProductUrlLabel release];
     [_productUrlText release];
+    [_indexPath release];
+    [_compList release];
+//    [_dao release];
     [super dealloc];
 }
+
 @end

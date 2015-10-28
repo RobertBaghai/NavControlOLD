@@ -75,6 +75,8 @@
     [_textTitle release];
     [_textName release];
     [_textStockCode release];
+    [_companyList release];
+//    [_dao release];
     [super dealloc];
 }
 

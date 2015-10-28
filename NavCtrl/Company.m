@@ -10,5 +10,15 @@
 
 @implementation Company
 
+-(void)dealloc
+{
+    [_companyName release];
+    [_companyLogo release];
+    [_stockCode release];
+    [_products release];
+    [_stockPrice release];
+    [_companyID release];
+    [super dealloc];
+}
 
 @end

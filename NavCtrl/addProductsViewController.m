@@ -62,7 +62,10 @@
     [_productText release];
     [_productUrlTitle release];
     [_productUrlText release];
+    [_companyList release];
+//    [_company release];
+//    [_dao release];
     [super dealloc];
-    
 }
+
 @end

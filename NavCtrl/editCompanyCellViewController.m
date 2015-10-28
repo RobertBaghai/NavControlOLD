@@ -68,6 +68,11 @@
     [_createdCompNameTitle release];
     [_compViewTitle release];
     [_editStockCodeText release];
+    [_indexPath release];
+    [_compList release];
+//    [_company release];
+//    [_dao release];
     [super dealloc];
 }
+
 @end

@@ -25,19 +25,30 @@
 }
 
 -(int)fetchPosition{
-    NSString *selectDB = [NSString stringWithFormat:@"select MAX(c_position) from Company"];
-    sqlite3_stmt *statement;
     NSString *maxPos = nil;
+    int max_pos = 0;
+    NSString *selectDB = [NSString stringWithFormat:@"select MAX(c_position) from Company"];
+    NSLog(@"%@",selectDB);
+    sqlite3_stmt *statement;
     [maxPos retain];
     const char *query_sql = [selectDB UTF8String];
     if (sqlite3_prepare(companyListDB, query_sql, -1, &statement, NULL) == SQLITE_OK)
     {
         while (sqlite3_step(statement)== SQLITE_ROW)
         {
-            maxPos = [[[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statement, 0)] autorelease];
+            const unsigned char *str = sqlite3_column_text(statement, 0);
+            NSLog(@"%s",str);
+            if (str == NULL) {
+                max_pos = 1;
+            }else{
+                maxPos = [[[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statement, 0)] autorelease];
+                max_pos = [maxPos intValue]+1;
+            }
         }
     }
-    return [maxPos intValue]+1;
+    
+    
+    return max_pos;
 }
 
 -(void)findOrCopyDB{
@@ -63,11 +74,11 @@
         [[NSFileManager defaultManager] copyItemAtPath:appDBBundlePath toPath:self.dbPath error:&error];
         if(error) {
             NSLog(@"ERROR: %@", error.localizedDescription);
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error"
+            UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:[error localizedDescription]
                                                            delegate:nil
                                                   cancelButtonTitle:@"ok"
-                                                  otherButtonTitles:nil];
+                                                  otherButtonTitles:nil] autorelease];
             [alert show];
         }
     }
@@ -95,7 +106,7 @@
                 comp.companyLogo = logo;
                 comp.stockCode = stock_code;
                 comp.companyID = comp_id;
-                comp.products = [[NSMutableArray alloc] init];
+                comp.products = [[[NSMutableArray alloc] init] autorelease];
                 NSLog(@"Company ID - %d",[comp_id intValue]);
                 //Fetching Products for each Company
                 int c_id = [comp_id intValue];
@@ -139,7 +150,7 @@
     for (int i = 0; i<[self.companyList count]; i++) {
         NSLog(@"Products for Company = %@ \nProducts = %@\n\n",[[self.companyList objectAtIndex:i] companyName],[[self.companyList objectAtIndex:i] products]);
     }
-    [_dbPath release];
+//    [_dbPath release];
 }
 
 
@@ -148,9 +159,7 @@
     char *error;
     if (sqlite3_exec(companyListDB, [deleteQuery UTF8String], NULL, NULL, &error)==SQLITE_OK)
     {
-        NSLog(@"Selection Deleted");
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Delete" message:@"Your Selection has been Deleted" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
-        [alert show];
+        NSLog(@"Your data has been deleted");
     }
 }
 
@@ -160,7 +169,7 @@
     if(sqlite3_exec(companyListDB, [addQuery UTF8String], NULL, NULL, &error)==SQLITE_OK)
     {
         NSLog(@"Data added");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add" message:@"Your data has been added" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Add" message:@"Your data has been added" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil] autorelease];
         [alert show];
     }
 }
@@ -180,7 +189,7 @@
     if(sqlite3_exec(companyListDB, [editQuery UTF8String], NULL, NULL, &error)==SQLITE_OK)
     {
         NSLog(@"Data Edited");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit" message:@"Your data has been edited" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Edit" message:@"Your data has been edited" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil] autorelease];
         [alert show];
     }
 }
@@ -295,5 +304,12 @@
     }
 }
 
+-(void)dealloc
+{
+    [_companyList release];
+    [_stockPrices release];
+    [_dbPath release];
+    [super dealloc];
+}
 
 @end

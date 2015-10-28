@@ -48,8 +48,9 @@
     holdEdit.minimumPressDuration = 2.0; //seconds
     //    holdEdit.delegate = self;
     [self.tableView addGestureRecognizer:holdEdit];
-    [buttons release];
+    [addButton release];
     [holdEdit release];
+    [buttons release];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -96,14 +97,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    
     return [self.companyProducts count];
 }
 
@@ -125,7 +123,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
@@ -134,7 +131,6 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        
         Product *prod = [self.companyProducts objectAtIndex:indexPath.row];
         
         NSLog(@"Delete Prod = %@",prod.productName);
@@ -172,7 +168,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
 
@@ -188,6 +183,13 @@
     [urlViewController release];
 }
 
-
+-(void)dealloc
+{
+    [_companyProducts release];
+//    [_company release];
+//    [_pics release];
+//    [_dao release];
+    [super dealloc];
+}
 
 @end

@@ -47,7 +47,6 @@
     _dao = [DataAccessObject sharedInstance];
     [self.dao findOrCopyDB];
     self.companyList = self.dao.companyList;
-    
     self.title = @"Mobile device makers";
     self.tableView.delaysContentTouches = NO;
     
@@ -55,8 +54,11 @@
     [holdEdit setCancelsTouchesInView:NO];
     holdEdit.minimumPressDuration = 2.0; //seconds
     [self.tableView addGestureRecognizer:holdEdit];
-    [buttons release];
+    [refreshButton release];
     [holdEdit release];
+    [addButton release];
+    [buttons release];
+    //    [self.editButtonItem release];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -98,14 +100,12 @@
                      });
                  }
              } ]resume];
-    [_rows retain];
-    [_rows release];
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     editCompanyCellViewController *editView =[[[editCompanyCellViewController alloc]
-                                              initWithNibName:@"editCompanyCellViewController" bundle:nil] autorelease];
+                                               initWithNibName:@"editCompanyCellViewController" bundle:nil] autorelease];
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
         editView.compList = self.companyList;
         
@@ -159,7 +159,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(!cell){
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-}
+    }
     
     Company *companyN = [self.companyList objectAtIndex:[indexPath row]];
     NSString *stockPrice = nil;
@@ -181,10 +181,10 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Company *comp = [self.companyList objectAtIndex:indexPath.row];
+        Company *comp = [self.companyList objectAtIndex:indexPath.row] ;
         [self.dao deleteData:[NSString stringWithFormat:@"DELETE FROM Company WHERE c_name IS '%s'",[comp.companyName UTF8String]]];
+        [self.dao deleteData:[NSString stringWithFormat:@"DELETE FROM Product WHERE company_id IS %d",[comp.companyID intValue]]];
         [self.companyList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -213,7 +213,6 @@
         [self.dao moveData:updateStmt];
         NSLog(@"Comp Name at index %d = %@",i,comp.companyName);
     }
-//    [_companyList release];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -231,6 +230,13 @@
     self.childVC.company = company;
     [self.childVC setCompanyProducts:company.products];
     [self.navigationController pushViewController:self.childVC animated:YES];
+}
+- (void)dealloc {
+    [_companyList release];
+    [_rows release];
+    [_childVC release];
+//    [_dao release];
+    [super dealloc];
 }
 
 @end
