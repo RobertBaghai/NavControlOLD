@@ -21,6 +21,8 @@
 @property (nonatomic,strong) NSIndexPath *indexPath;
 @property (strong, nonatomic) NSMutableArray *compList;
 @property (strong, nonatomic) DataAccessObject *dao;
+@property(nonatomic) NSInteger *myindexPath;
+@property(nonatomic) NSInteger *companyIndex;
 - (IBAction)makeProductChanges:(id)sender;
 
 

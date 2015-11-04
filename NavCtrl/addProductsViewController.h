@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *companyList;
 @property (strong, nonatomic) Company *company;
 @property (strong, nonatomic) DataAccessObject *dao;
+@property(nonatomic) NSInteger *myindexPath;
 
 - (IBAction)submitProduct:(id)sender;
 

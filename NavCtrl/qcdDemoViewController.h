@@ -17,8 +17,7 @@
 @property (strong, nonatomic) NSMutableArray *rows;
 @property (nonatomic, retain) IBOutlet  ChildViewController * childVC;
 @property (strong, nonatomic) DataAccessObject *dao;
+@property(nonatomic) NSInteger *prodIndex;
 -(void)add:(id)sender;
-
-
 
 @end

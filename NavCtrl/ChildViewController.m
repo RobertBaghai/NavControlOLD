@@ -1,4 +1,4 @@
-//
+ //
 //  ChildViewController.m
 //  NavCtrl
 //
@@ -15,7 +15,6 @@
 {
     long indexPathCounter;
 }
-
 @end
 
 @implementation ChildViewController
@@ -38,22 +37,25 @@
     _dao = [DataAccessObject sharedInstance];
     
     UIImage *addImage = [UIImage imageNamed:@"itemAdd"];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:addImage style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                  initWithImage:addImage style:UIBarButtonItemStylePlain
+                                  target:self action:@selector(add:)];
     NSArray *buttons = [[NSArray alloc]initWithObjects:addButton,self.editButtonItem,nil];
     self.navigationItem.rightBarButtonItems = buttons;
     self.tableView.delaysContentTouches = NO;
     
-    UILongPressGestureRecognizer *holdEdit = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *holdEdit = [[UILongPressGestureRecognizer alloc]
+                                              initWithTarget:self action:@selector(handleLongPress:)];
     [holdEdit setCancelsTouchesInView:NO];
     holdEdit.minimumPressDuration = 2.0; //seconds
-    //    holdEdit.delegate = self;
     [self.tableView addGestureRecognizer:holdEdit];
     [addButton release];
     [holdEdit release];
     [buttons release];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
@@ -61,12 +63,11 @@
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     editProductCellViewController *editProductView =[[[editProductCellViewController alloc]
-                                                     initWithNibName:@"editProductCellViewController"
-                                                     bundle:nil] autorelease];
-    
+                                                      initWithNibName:@"editProductCellViewController"
+                                                      bundle:nil] autorelease];
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
-        
         editProductView.compList = self.companyProducts;
+        editProductView.companyIndex = self.myindexPath;
         UITableView* tableView = (UITableView*)self.view;
         CGPoint touchPoint = [gestureRecognizer locationInView:self.view];
         NSIndexPath* row = [tableView indexPathForRowAtPoint:touchPoint];
@@ -75,7 +76,6 @@
         }
         [self.navigationController pushViewController:editProductView animated:YES];
     }
-
 }
 
 -(void)add:(id)sender
@@ -83,6 +83,7 @@
     NSLog(@"Add button pressed");
     addProductsViewController *addProdView = [[addProductsViewController alloc] initWithNibName:@"addProductsViewController" bundle:nil];
     addProdView.company = self.company;
+    addProdView.myindexPath = self.myindexPath;
     [self.navigationController pushViewController:addProdView animated:YES];
     [addProdView release];
 }
@@ -111,14 +112,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        
     }
     //configure cell
     Product *productN = [self.company.products objectAtIndex:[indexPath row]];
     cell.textLabel.text = productN.productName;
     cell.imageView.image = [UIImage imageNamed: productN.productLogo];
     return cell;
-    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,19 +127,11 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        Product *prod = [self.companyProducts objectAtIndex:indexPath.row];
-        
-        NSLog(@"Delete Prod = %@",prod.productName);
-        NSString *deleteStatement = [NSString stringWithFormat:@"DELETE FROM Product WHERE p_name IS '%s'",[prod.productName UTF8String]];
-        NSLog(@"Delete Statement = %@",deleteStatement);
-        [self.dao deleteData:deleteStatement];
-        
         [self.companyProducts removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
+        [self.dao deletProd:indexPath.row forCompanyIndex:self.myindexPath];
+ }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
@@ -156,14 +147,6 @@
     [self.companyProducts removeObjectAtIndex:fromRow];
     [self.companyProducts insertObject:prodToMove atIndex:toRow];
     [prodToMove release];
-    self.company.products = self.companyProducts;
-    for(int i = 1; i<= [self.companyProducts count]; i++){
-        Product *prod = [self.companyProducts objectAtIndex:i-1];
-        NSLog(@"prod.productID = %d \n",[prod.productID intValue]);
-        NSString *updateStmt = [NSString stringWithFormat:@"UPDATE Product SET p_position = %d WHERE id = %d",i,[prod.productID intValue]];
-        [self.dao moveData:updateStmt];
-        NSLog(@"Prod name at index %d = %@",i,prod.productName);
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,9 +169,9 @@
 -(void)dealloc
 {
     [_companyProducts release];
-//    [_company release];
-//    [_pics release];
-//    [_dao release];
+    [_company release];
+    [_pics release];
+    [_dao release];
     [super dealloc];
 }
 

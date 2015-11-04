@@ -15,7 +15,7 @@
 @implementation addProductsViewController
 {
     sqlite3_stmt *stmt;
-
+    
 }
 
 - (void)viewDidLoad {
@@ -30,18 +30,18 @@
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
-
-- (IBAction)submitProduct:(id)sender {
-    
+- (IBAction)submitProduct:(id)sender
+{
     NSString *prodName = self.productText.text;
     NSString *prodLogo = @"prodLogo.png";
     NSString *prodURL = self.productUrlText.text;
@@ -49,12 +49,11 @@
     prod.productName = prodName;
     prod.productLogo = prodLogo;
     prod.productURL = prodURL ;
-
-    [self.dao addData:[NSString stringWithFormat:@"INSERT INTO Product (p_name,p_logo,p_url,company_id) VALUES ('%s','%s','%s','%@')",[prod.productName UTF8String],[prod.productLogo UTF8String], [prod.productURL UTF8String], self.company.companyID]];
+    
     [self.company.products addObject:prod];
     [self.navigationController popViewControllerAnimated:YES];
     [prod release];
-
+    [self.dao addProduct:self.productText.text withLogo:prodLogo andUrl:self.productUrlText.text toCompanyID:self.myindexPath];
 }
 
 - (void)dealloc {
@@ -63,8 +62,6 @@
     [_productUrlTitle release];
     [_productUrlText release];
     [_companyList release];
-//    [_company release];
-//    [_dao release];
     [super dealloc];
 }
 

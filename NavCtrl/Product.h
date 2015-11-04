@@ -12,7 +12,6 @@
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productLogo;
 @property (strong, nonatomic) NSString *productURL;
-@property (strong, nonatomic) NSString *productID;
 
 
 

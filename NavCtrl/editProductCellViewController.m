@@ -14,30 +14,31 @@
 
 @implementation editProductCellViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     _dao = [DataAccessObject sharedInstance];
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-- (IBAction)makeProductChanges:(id)sender {
-    
+- (IBAction)makeProductChanges:(id)sender
+{
     NSString *editProductName = self.productNameText.text;
     NSString *editProductUrl = self. productUrlText.text;
     NSString *editProductLogo = @"yourlogo.png";
@@ -45,11 +46,8 @@
     prod.productName = editProductName;
     prod.productURL = editProductUrl;
     prod.productLogo = editProductLogo;
-    
-    NSString *editStatement = [NSString stringWithFormat:@"UPDATE Product SET p_name = '%@' , p_logo = '%@', p_url = '%@' WHERE id = %d",editProductName,editProductLogo,editProductUrl,[prod.productID intValue]];
-    [self.dao editData:editStatement];
     [self.navigationController popViewControllerAnimated:YES];
-
+    [self.dao editProduct:self.productNameText.text withLogo:editProductLogo url:self.productUrlText.text andIndex:(NSInteger*)self.indexPath.row forCompanyIndex:self.companyIndex];
 }
 
 - (void)dealloc {
@@ -60,7 +58,6 @@
     [_productUrlText release];
     [_indexPath release];
     [_compList release];
-//    [_dao release];
     [super dealloc];
 }
 

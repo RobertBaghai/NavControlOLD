@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="Company" representedClassName="CoreCompany" syncable="YES">
+        <attribute name="companyLogo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stockCode" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="prod" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="comp" inverseEntity="Product" syncable="YES"/>
+    </entity>
+    <entity name="Product" representedClassName="CoreProduct" syncable="YES">
+        <attribute name="productLogo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="comp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="prod" inverseEntity="Company" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Company" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Product" positionX="-65" positionY="81" width="128" height="103"/>
+    </elements>
+</model>

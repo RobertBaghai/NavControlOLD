@@ -4,7 +4,7 @@
 //
 //  Created by Aditya Narayan on 10/22/13.
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
-//
+
 #import "Company.h"
 #import "qcdDemoViewController.h"
 #import "ChildViewController.h"
@@ -13,11 +13,9 @@
 #import "editCompanyCellViewController.h"
 
 @interface qcdDemoViewController ()
-
 {
     long indexPathCounter;
 }
-
 @end
 
 @implementation qcdDemoViewController
@@ -35,6 +33,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _dao = [DataAccessObject sharedInstance];
+    [self.dao readOrCreateCoreData];
+    self.companyList = self.dao.companyList;
+    self.title = @"Mobile device makers";
+    self.tableView.delaysContentTouches = NO;
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                       target:self
@@ -43,14 +46,8 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:addImage style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
     NSArray *buttons = [[NSArray alloc]initWithObjects:refreshButton,addButton,self.editButtonItem,nil];
     self.navigationItem.rightBarButtonItems = buttons;
-    
-    _dao = [DataAccessObject sharedInstance];
-    [self.dao findOrCopyDB];
-    self.companyList = self.dao.companyList;
-    self.title = @"Mobile device makers";
-    self.tableView.delaysContentTouches = NO;
-    
-    UILongPressGestureRecognizer *holdEdit = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *holdEdit = [[UILongPressGestureRecognizer alloc]
+                                              initWithTarget:self action:@selector(handleLongPress:)];
     [holdEdit setCancelsTouchesInView:NO];
     holdEdit.minimumPressDuration = 2.0; //seconds
     [self.tableView addGestureRecognizer:holdEdit];
@@ -58,13 +55,11 @@
     [holdEdit release];
     [addButton release];
     [buttons release];
-    //    [self.editButtonItem release];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadStockPrices];
-    
 }
 
 -(void)loadStockPrices{
@@ -115,7 +110,6 @@
         if (row != nil) {
             editView.indexPath = row;
         }
-        
         [self.navigationController pushViewController:editView animated:YES];
     }
 }
@@ -168,7 +162,7 @@
     }else{
         stockPrice = [@"                Current Stock Price:    " stringByAppendingString:companyN.stockPrice];
     }
-    cell.textLabel.text = [companyN.companyName stringByAppendingString:stockPrice];;
+    cell.textLabel.text = [companyN.companyName stringByAppendingString:stockPrice];
     cell.imageView.image = [UIImage imageNamed: companyN.companyLogo];
     return cell;
 }
@@ -178,41 +172,29 @@
     return YES;
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Company *comp = [self.companyList objectAtIndex:indexPath.row] ;
-        [self.dao deleteData:[NSString stringWithFormat:@"DELETE FROM Company WHERE c_name IS '%s'",[comp.companyName UTF8String]]];
-        [self.dao deleteData:[NSString stringWithFormat:@"DELETE FROM Product WHERE company_id IS %d",[comp.companyID intValue]]];
+    if (editingStyle == UITableViewCellEditingStyleDelete){
         [self.companyList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
+        [self.dao deleteComp:indexPath.row];
+        NSLog(@"%lu",[self.companyList count]);
+}
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    
     NSUInteger fromRow = [fromIndexPath row];
     NSUInteger toRow = [toIndexPath row];
     NSLog(@"move data %ld to %ld", (unsigned long)fromRow, (unsigned long)toRow);
-    
     Company *companyFrom = [self.companyList objectAtIndex:fromRow];
     [companyFrom retain];
     [self.companyList removeObjectAtIndex:fromRow];
     [self.companyList insertObject:companyFrom atIndex:toRow];
     [companyFrom release];
-    self.dao.companyList = self.companyList;
-    for (int i=1; i <= [self.companyList count]; i++) {
-        Company *comp = [self.companyList objectAtIndex:i-1];
-        NSString *updateStmt = [NSString stringWithFormat:@"UPDATE Company SET c_position = %d WHERE id = %d",i,[comp.companyID intValue]];
-        [self.dao moveData:updateStmt];
-        NSLog(@"Comp Name at index %d = %@",i,comp.companyName);
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -221,13 +203,14 @@
 }
 
 #pragma mark - Table view delegate
-
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Company *company = [self.companyList objectAtIndex:indexPath.row];
     self.childVC.title = company.companyName;
     self.childVC.company = company;
+    self.childVC.myindexPath = (NSInteger*)indexPath.row;
+    self.prodIndex = self.childVC.myindexPath;
     [self.childVC setCompanyProducts:company.products];
     [self.navigationController pushViewController:self.childVC animated:YES];
 }
@@ -235,7 +218,6 @@
     [_companyList release];
     [_rows release];
     [_childVC release];
-//    [_dao release];
     [super dealloc];
 }
 

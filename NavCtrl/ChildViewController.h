@@ -15,8 +15,8 @@
 @property (strong, nonatomic) Company *company;
 @property (strong, nonatomic) NSMutableArray *pics;
 @property (strong, nonatomic) DataAccessObject *dao;
+@property(nonatomic) NSInteger *myindexPath;
 -(void)add:(id)sender;
-
 
 
 @end

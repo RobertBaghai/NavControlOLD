@@ -17,8 +17,10 @@
     [_stockCode release];
     [_products release];
     [_stockPrice release];
-    [_companyID release];
     [super dealloc];
 }
+ 
+
+
 
 @end

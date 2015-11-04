@@ -36,19 +36,16 @@
  */
 
 
-- (IBAction)makeChangesButton:(id)sender {
-    
-    
+- (IBAction)makeChangesButton:(id)sender
+{    
     NSString *editCompanyCell = self.createdCompanyName.text;
     NSString *editCompanyPic = @"yourlogo.png";
     NSString *editCompStock = self.editStockCodeText.text;
     NSLog(@"%ld",(long)self.indexPath.row);
     
-    
     Company *comp = [self.compList objectAtIndex:self.indexPath.row];
     comp.companyName = editCompanyCell;
     comp.companyLogo = editCompanyPic;
-    
     if([self.editStockCodeText.text isEqualToString:@""]){
         comp.stockCode = @"N/A";
         self.editStockCodeText.text = @"N/A";
@@ -56,10 +53,8 @@
     {
         comp.stockCode = editCompStock;
     }
-    
-    NSString *editStatement = [NSString stringWithFormat:@"UPDATE Company SET c_name = '%@' , c_logo = '%@', c_stockCode = '%@' WHERE id = %d",editCompanyCell,editCompanyPic,self.editStockCodeText.text,[comp.companyID intValue]];
-    [self.dao editData:editStatement];
     [self.navigationController popViewControllerAnimated:YES];
+    [self.dao editCompany:self.createdCompanyName.text withStockCode:self.editStockCodeText.text logo:editCompanyPic andIndex:self.indexPath.row];
 }
 
 
@@ -70,8 +65,6 @@
     [_editStockCodeText release];
     [_indexPath release];
     [_compList release];
-//    [_company release];
-//    [_dao release];
     [super dealloc];
 }
 

@@ -42,7 +42,12 @@
 		43BB99ED1BBDDA1100AB7F78 /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB99E11BBDDA1100AB7F78 /* tab.png */; };
 		43C52AE21BCC0F910094C226 /* editProductCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C52AE01BCC0F910094C226 /* editProductCellViewController.m */; };
 		43C52AE31BCC0F910094C226 /* editProductCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C52AE11BCC0F910094C226 /* editProductCellViewController.xib */; };
-		43C6FD731BDF1625005E96BC /* NavControllerDataBase.db in Resources */ = {isa = PBXBuildFile; fileRef = 43C6FD721BDF1625005E96BC /* NavControllerDataBase.db */; };
+		43E150881BE26D0800714A87 /* ModelComp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 43E150861BE26D0800714A87 /* ModelComp.xcdatamodeld */; };
+		43E1508A1BE26E1F00714A87 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E150891BE26E1F00714A87 /* CoreData.framework */; };
+		43E150A91BE2906300714A87 /* CoreCompany+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E150A21BE2906300714A87 /* CoreCompany+CoreDataProperties.m */; };
+		43E150AA1BE2906300714A87 /* CoreCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E150A41BE2906300714A87 /* CoreCompany.m */; };
+		43E150AB1BE2906300714A87 /* CoreProduct+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E150A61BE2906300714A87 /* CoreProduct+CoreDataProperties.m */; };
+		43E150AC1BE2906300714A87 /* CoreProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E150A81BE2906300714A87 /* CoreProduct.m */; };
 		43F8B7AC1BCB1DA10053ED15 /* editCompanyCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F8B7AA1BCB1DA10053ED15 /* editCompanyCellViewController.m */; };
 		43F8B7AD1BCB1DA10053ED15 /* editCompanyCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F8B7AB1BCB1DA10053ED15 /* editCompanyCellViewController.xib */; };
 		43FC94901BC6FBB30049A81A /* addButoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 43FC948F1BC6FBB30049A81A /* addButoon.png */; };
@@ -133,7 +138,16 @@
 		43C52ADF1BCC0F910094C226 /* editProductCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editProductCellViewController.h; sourceTree = "<group>"; };
 		43C52AE01BCC0F910094C226 /* editProductCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editProductCellViewController.m; sourceTree = "<group>"; };
 		43C52AE11BCC0F910094C226 /* editProductCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = editProductCellViewController.xib; sourceTree = "<group>"; };
-		43C6FD721BDF1625005E96BC /* NavControllerDataBase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = NavControllerDataBase.db; sourceTree = "<group>"; };
+		43E150871BE26D0800714A87 /* ModelComp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelComp.xcdatamodel; sourceTree = "<group>"; };
+		43E150891BE26E1F00714A87 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		43E150A11BE2906300714A87 /* CoreCompany+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CoreCompany+CoreDataProperties.h"; path = "NavCtrl/CoreCompany+CoreDataProperties.h"; sourceTree = "<group>"; };
+		43E150A21BE2906300714A87 /* CoreCompany+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreCompany+CoreDataProperties.m"; path = "NavCtrl/CoreCompany+CoreDataProperties.m"; sourceTree = "<group>"; };
+		43E150A31BE2906300714A87 /* CoreCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreCompany.h; path = NavCtrl/CoreCompany.h; sourceTree = "<group>"; };
+		43E150A41BE2906300714A87 /* CoreCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreCompany.m; path = NavCtrl/CoreCompany.m; sourceTree = "<group>"; };
+		43E150A51BE2906300714A87 /* CoreProduct+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CoreProduct+CoreDataProperties.h"; path = "NavCtrl/CoreProduct+CoreDataProperties.h"; sourceTree = "<group>"; };
+		43E150A61BE2906300714A87 /* CoreProduct+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreProduct+CoreDataProperties.m"; path = "NavCtrl/CoreProduct+CoreDataProperties.m"; sourceTree = "<group>"; };
+		43E150A71BE2906300714A87 /* CoreProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreProduct.h; path = NavCtrl/CoreProduct.h; sourceTree = "<group>"; };
+		43E150A81BE2906300714A87 /* CoreProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreProduct.m; path = NavCtrl/CoreProduct.m; sourceTree = "<group>"; };
 		43F8B7A91BCB1DA10053ED15 /* editCompanyCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editCompanyCellViewController.h; sourceTree = "<group>"; };
 		43F8B7AA1BCB1DA10053ED15 /* editCompanyCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editCompanyCellViewController.m; sourceTree = "<group>"; };
 		43F8B7AB1BCB1DA10053ED15 /* editCompanyCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = editCompanyCellViewController.xib; sourceTree = "<group>"; };
@@ -171,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43E1508A1BE26E1F00714A87 /* CoreData.framework in Frameworks */,
 				435566281BD83902009BDABB /* libsqlite3.0.tbd in Frameworks */,
 				4328045D1BC1F08E00B99E20 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
@@ -243,6 +258,22 @@
 			path = productPics;
 			sourceTree = "<group>";
 		};
+		43E1509A1BE28C9900714A87 /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				43E150861BE26D0800714A87 /* ModelComp.xcdatamodeld */,
+				43E150A31BE2906300714A87 /* CoreCompany.h */,
+				43E150A41BE2906300714A87 /* CoreCompany.m */,
+				43E150A71BE2906300714A87 /* CoreProduct.h */,
+				43E150A81BE2906300714A87 /* CoreProduct.m */,
+				43E150A11BE2906300714A87 /* CoreCompany+CoreDataProperties.h */,
+				43E150A21BE2906300714A87 /* CoreCompany+CoreDataProperties.m */,
+				43E150A51BE2906300714A87 /* CoreProduct+CoreDataProperties.h */,
+				43E150A61BE2906300714A87 /* CoreProduct+CoreDataProperties.m */,
+			);
+			name = CoreDataModel;
+			sourceTree = "<group>";
+		};
 		43FC94981BC722F50049A81A /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +327,7 @@
 				43FC949A1BC723090049A81A /* view */,
 				43FC94991BC722FF0049A81A /* controller */,
 				43FC94981BC722F50049A81A /* model */,
+				43E1509A1BE28C9900714A87 /* CoreDataModel */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
 				48A656B318163BF200746D36 /* Frameworks */,
@@ -315,6 +347,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43E150891BE26E1F00714A87 /* CoreData.framework */,
 				435566271BD83902009BDABB /* libsqlite3.0.tbd */,
 				4331E13F1BCFF734009CFB2E /* UIKit+AFNetworking */,
 				4328045C1BC1F08E00B99E20 /* WebKit.framework */,
@@ -340,7 +373,6 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				43C6FD721BDF1625005E96BC /* NavControllerDataBase.db */,
 				43BB99D51BBDDA1100AB7F78 /* productPics */,
 				43BB99C91BBDC51100AB7F78 /* apple.png */,
 				43BB99CA1BBDC51100AB7F78 /* htc.png */,
@@ -459,7 +491,6 @@
 				43BB99E81BBDDA1100AB7F78 /* lgwatch.png in Resources */,
 				43BB99ED1BBDDA1100AB7F78 /* tab.png in Resources */,
 				43BB99E71BBDDA1100AB7F78 /* lgtablet.png in Resources */,
-				43C6FD731BDF1625005E96BC /* NavControllerDataBase.db in Resources */,
 				43BB99D31BBDCC7E00AB7F78 /* lg.png in Resources */,
 				435086161BBED0080066054A /* UrlViewController.xib in Resources */,
 				43BB99D41BBDCC7E00AB7F78 /* samsung.png in Resources */,
@@ -503,17 +534,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43E150AB1BE2906300714A87 /* CoreProduct+CoreDataProperties.m in Sources */,
+				43E150A91BE2906300714A87 /* CoreCompany+CoreDataProperties.m in Sources */,
+				43E150AC1BE2906300714A87 /* CoreProduct.m in Sources */,
 				4386403E1BC593AE0069937A /* DataAccessObject.m in Sources */,
 				4380C9051BC41AF500492970 /* Product.m in Sources */,
 				434AF73A1BC8243100FA27D1 /* addProductsViewController.m in Sources */,
 				48A656E618163C1B00746D36 /* qcdDemoViewController.m in Sources */,
 				43C52AE21BCC0F910094C226 /* editProductCellViewController.m in Sources */,
 				4380C9021BC41ADD00492970 /* Company.m in Sources */,
+				43E150AA1BE2906300714A87 /* CoreCompany.m in Sources */,
 				435086151BBED0070066054A /* UrlViewController.m in Sources */,
 				48A656C518163BF200746D36 /* qcdDemoAppDelegate.m in Sources */,
 				43FC94961BC70FA70049A81A /* addViewController.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				48A656EB18163F8700746D36 /* ChildViewController.m in Sources */,
+				43E150881BE26D0800714A87 /* ModelComp.xcdatamodeld in Sources */,
 				43F8B7AC1BCB1DA10053ED15 /* editCompanyCellViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -732,6 +768,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		43E150861BE26D0800714A87 /* ModelComp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				43E150871BE26D0800714A87 /* ModelComp.xcdatamodel */,
+			);
+			currentVersion = 43E150871BE26D0800714A87 /* ModelComp.xcdatamodel */;
+			path = ModelComp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 48A656A918163BF200746D36 /* Project object */;
 }
