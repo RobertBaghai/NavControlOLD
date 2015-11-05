@@ -29,8 +29,7 @@
     NSArray *documentsDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [documentsDirectories objectAtIndex:0];
     
-    self.dbPath = [documentsDirectory
-                   stringByAppendingPathComponent:@"CompAndProd.data"];
+    self.dbPath = [documentsDirectory stringByAppendingPathComponent:@"CompAndProd.data"];
     return self.dbPath;
 }
 
@@ -49,7 +48,7 @@
     {
         [NSException raise:@"Open failed" format:@"Reason: %@", [error localizedDescription]];
     }
-    self.context= [[[NSManagedObjectContext alloc] init] autorelease];
+    self.context = [[[NSManagedObjectContext alloc] init] autorelease];
     self.context.undoManager = [[[NSUndoManager alloc] init] autorelease];
     [[self context] setPersistentStoreCoordinator:psc];
     [psc release];
@@ -101,40 +100,39 @@
                     productList:[[self.companyList objectAtIndex:i] products]];
         }
         [self saveChanges];
-        [self.companyList removeAllObjects];
         NSArray *fetch = [self.context executeFetchRequest:request error:&error];
         self.result = [[[NSMutableArray alloc]initWithArray:fetch] autorelease];
-    }
-    // Read from Core data
-    for (int i=0; i<[self.result count]; i++) {
-        CoreCompany *tempCoreComp = [self.result objectAtIndex:i];
-        Company *tempcomp = [[Company alloc] init];
-        tempcomp.companyName = [tempCoreComp companyName];
-        tempcomp.companyLogo = [tempCoreComp companyLogo];
-        tempcomp.stockCode   = [tempCoreComp stockCode];
-        tempcomp.products = [[[NSMutableArray alloc]init] autorelease];
-        
-        NSSortDescriptor *sortByProdName = [[NSSortDescriptor alloc]
-                                            initWithKey:@"productName" ascending:YES];
-        NSArray *prods = [tempCoreComp.prod sortedArrayUsingDescriptors:@[sortByProdName]];
-        for(CoreProduct *tempCoreProd in prods){
-            Product *tempprod = [[Product alloc] init];
-            tempprod.productName = [tempCoreProd productName];
-            tempprod.productLogo = [tempCoreProd productLogo];
-            tempprod.productURL = [tempCoreProd productURL];
-            [tempcomp.products addObject:tempprod];
-            [tempprod release];
+    }else{
+        // Read from Core data
+        for (int i=0; i<[self.result count]; i++) {
+            CoreCompany *tempCoreComp = [self.result objectAtIndex:i];
+            Company *tempcomp = [[Company alloc] init];
+            tempcomp.companyName = [tempCoreComp companyName];
+            tempcomp.companyLogo = [tempCoreComp companyLogo];
+            tempcomp.stockCode   = [tempCoreComp stockCode];
+            tempcomp.products = [[[NSMutableArray alloc]init] autorelease];
+            
+            NSSortDescriptor *sortByProdName = [[NSSortDescriptor alloc]
+                                                initWithKey:@"productName" ascending:YES];
+            NSArray *prods = [tempCoreComp.prod sortedArrayUsingDescriptors:@[sortByProdName]];
+            for(CoreProduct *tempCoreProd in prods){
+                Product *tempprod = [[Product alloc] init];
+                tempprod.productName = [tempCoreProd productName];
+                tempprod.productLogo = [tempCoreProd productLogo];
+                tempprod.productURL = [tempCoreProd productURL];
+                [tempcomp.products addObject:tempprod];
+                [tempprod release];
+            }
+            [self.companyList addObject:tempcomp];
+            NSLog(@"CNAME = %@",[[self.companyList objectAtIndex:i] companyName]);
+            [sortByProdName release];
+            [tempcomp release];
+            
         }
-        [self.companyList addObject:tempcomp];
-        NSLog(@"CNAME = %@",[[self.companyList objectAtIndex:i] companyName]);
-        [sortByProdName release];
-        [tempcomp release];
-        
+        [request release];
+//        [sortByName release];
     }
-    [request release];
-    [sortByName release];
 }
-
 -(void)saveChanges
 {
     NSError *err = nil;
@@ -148,20 +146,18 @@
 
 -(void)deleteComp:(long)index
 {
-    if ([self.result count]==0 || [self.result count] >0) {
-        NSManagedObject *comp = (NSManagedObject*)[self.result objectAtIndex:index];
-        [self.context deleteObject:comp];
-        [self.result removeObject:comp];
-        NSError *deleteError = nil;
-        if (![comp.managedObjectContext save:&deleteError]) {
-            NSLog(@"Unable to save managed object context.");
-            NSLog(@"%@, %@", deleteError, deleteError.localizedDescription);
-        }
+    NSManagedObject *comp = (NSManagedObject*)[self.result objectAtIndex:index];
+    [self.context deleteObject:comp];
+    [self.result removeObject:comp];
+    NSError *deleteError = nil;
+    if (![comp.managedObjectContext save:&deleteError]) {
+        NSLog(@"Unable to save managed object context.");
+        NSLog(@"%@, %@", deleteError, deleteError.localizedDescription);
     }
     [self saveChanges];
 }
 
--(void)editCompany:(NSString*)company_Name withStockCode:(NSString*)stockCode logo:(NSString*)companyLogo andIndex:(long)index
+-(void)updateCompany:(NSString*)company_Name withStockCode:(NSString*)stockCode logo:(NSString*)companyLogo andIndex:(long)index
 {
     NSManagedObject *comp = (NSManagedObject *)[self.result objectAtIndex:index];
     [comp setValue:company_Name forKey:@"companyName"];
@@ -200,7 +196,7 @@
     [self saveChanges];
 }
 
--(void)editProduct:(NSString*)product_Name withLogo:(NSString*)product_logo url:(NSString*)prod_url andIndex:(NSInteger*)index forCompanyIndex:(NSInteger *)companyIndex
+-(void)updateProduct:(NSString*)product_Name withLogo:(NSString*)product_logo url:(NSString*)prod_url andIndex:(NSInteger*)index forCompanyIndex:(NSInteger *)companyIndex
 {
     CoreCompany *comp = [self.result objectAtIndex:(int)companyIndex];
     NSManagedObject *prod = (NSManagedObject*)[[[comp prod] allObjects]objectAtIndex:(int)index];
@@ -210,9 +206,18 @@
     [self saveChanges];
 }
 
+//-(void)moveCompanyCell:(NSIndexPath*)fromIndex to:(NSIndexPath*)toIndex{
+//    CoreCompany *comp = [self.result objectAtIndex:(int)fromIndex];
+//    [comp retain];
+//    [self.result removeObjectAtIndex:(int)fromIndex];
+//    [self.result insertObject:comp atIndex:(int)toIndex];
+//    [comp release];
+//    [self saveChanges];
+//}
+
 -(void)getCompaniesAndProducts
 {
-    //hard coded values here
+    /*------------------------------------- Hard-coded values here -------------------------------*/
     Company *apple =[[Company alloc] init];
     apple.companyName = @"Apple mobile devices";
     apple.companyLogo = @"apple.png";

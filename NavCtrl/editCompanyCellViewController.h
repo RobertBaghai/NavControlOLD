@@ -13,7 +13,6 @@
 
 @interface editCompanyCellViewController : UIViewController
 
-
 @property (retain, nonatomic) IBOutlet UILabel *createdCompNameTitle;
 @property (retain, nonatomic) IBOutlet UITextField *createdCompanyName;
 @property (strong, nonatomic) NSIndexPath *indexPath;
@@ -23,6 +22,7 @@
 - (IBAction)makeChangesButton:(id)sender;
 @property (retain, nonatomic) IBOutlet UILabel *compViewTitle;
 @property (retain, nonatomic) IBOutlet UITextField *editStockCodeText;
-
+@property (strong , nonatomic) NSString *editName;
+@property (strong , nonatomic) NSString *editStock;
 
 @end

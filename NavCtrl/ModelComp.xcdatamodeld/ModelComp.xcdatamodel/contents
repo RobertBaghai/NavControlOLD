@@ -13,7 +13,7 @@
         <relationship name="comp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="prod" inverseEntity="Company" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Company" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Company" positionX="-495" positionY="66" width="128" height="105"/>
         <element name="Product" positionX="-65" positionY="81" width="128" height="103"/>
     </elements>
 </model>

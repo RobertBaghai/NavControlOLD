@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Product : NSObject
+
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productLogo;
 @property (strong, nonatomic) NSString *productURL;
-
-
 
 @end

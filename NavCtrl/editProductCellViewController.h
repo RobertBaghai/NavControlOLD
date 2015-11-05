@@ -24,6 +24,7 @@
 @property(nonatomic) NSInteger *myindexPath;
 @property(nonatomic) NSInteger *companyIndex;
 - (IBAction)makeProductChanges:(id)sender;
-
+@property (strong , nonatomic) NSString *editName;
+@property (strong , nonatomic) NSString *editUrl;
 
 @end

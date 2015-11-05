@@ -18,5 +18,4 @@
 @property(nonatomic) NSInteger *myindexPath;
 -(void)add:(id)sender;
 
-
 @end

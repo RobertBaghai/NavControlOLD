@@ -13,13 +13,10 @@
 #import "editCompanyCellViewController.h"
 
 @interface qcdDemoViewController ()
-{
-    long indexPathCounter;
-}
+
 @end
 
 @implementation qcdDemoViewController
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -45,7 +42,7 @@
     UIImage *addImage = [UIImage imageNamed:@"itemAdd"];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:addImage style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
     NSArray *buttons = [[NSArray alloc]initWithObjects:refreshButton,addButton,self.editButtonItem,nil];
-    self.navigationItem.rightBarButtonItems = buttons;
+    self.navigationItem.rightBarButtonItems = buttons; //array of buttons
     UILongPressGestureRecognizer *holdEdit = [[UILongPressGestureRecognizer alloc]
                                               initWithTarget:self action:@selector(handleLongPress:)];
     [holdEdit setCancelsTouchesInView:NO];
@@ -103,13 +100,16 @@
                                                initWithNibName:@"editCompanyCellViewController" bundle:nil] autorelease];
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
         editView.compList = self.companyList;
-        
         UITableView* tableView = (UITableView*)self.view;
         CGPoint touchPoint = [gestureRecognizer locationInView:self.view];
         NSIndexPath* row = [tableView indexPathForRowAtPoint:touchPoint];
+        NSLog(@"Row: %ld", (long)row.row);
+        Company *companyN = [self.companyList objectAtIndex:[row row]];
         if (row != nil) {
             editView.indexPath = row;
         }
+        editView.editName = companyN.companyName;
+        editView.editStock = companyN.stockCode;
         [self.navigationController pushViewController:editView animated:YES];
     }
 }
@@ -152,7 +152,7 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(!cell){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     Company *companyN = [self.companyList objectAtIndex:[indexPath row]];
@@ -160,10 +160,12 @@
     if (companyN.stockPrice == nil) {
         stockPrice = @"   No Stock Info Available";
     }else{
-        stockPrice = [@"                Current Stock Price:    " stringByAppendingString:companyN.stockPrice];
+        stockPrice = [@"Current Stock Price:    " stringByAppendingString:companyN.stockPrice];
     }
-    cell.textLabel.text = [companyN.companyName stringByAppendingString:stockPrice];
+    cell.textLabel.text = companyN.companyName;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",stockPrice];
     cell.imageView.image = [UIImage imageNamed: companyN.companyLogo];
+    
     return cell;
 }
 
@@ -195,6 +197,8 @@
     [self.companyList removeObjectAtIndex:fromRow];
     [self.companyList insertObject:companyFrom atIndex:toRow];
     [companyFrom release];
+    
+//    [self.dao moveCompanyCell:(NSIndexPath*)fromRow to: (NSIndexPath*)toRow];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -210,7 +214,6 @@
     self.childVC.title = company.companyName;
     self.childVC.company = company;
     self.childVC.myindexPath = (NSInteger*)indexPath.row;
-    self.prodIndex = self.childVC.myindexPath;
     [self.childVC setCompanyProducts:company.products];
     [self.navigationController pushViewController:self.childVC animated:YES];
 }

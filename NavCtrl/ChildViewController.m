@@ -12,9 +12,7 @@
 #import "editProductCellViewController.h"
 
 @interface ChildViewController ()
-{
-    long indexPathCounter;
-}
+
 @end
 
 @implementation ChildViewController
@@ -74,6 +72,10 @@
         if (row != nil) {
             editProductView.indexPath = row;
         }
+        Product *productN = [self.company.products objectAtIndex:[row row]];
+        editProductView.editName = productN.productName;
+        editProductView.editUrl = productN.productURL;
+
         [self.navigationController pushViewController:editProductView animated:YES];
     }
 }

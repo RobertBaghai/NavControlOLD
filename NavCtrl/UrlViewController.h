@@ -17,5 +17,4 @@
 @property (strong, nonatomic) NSURL *myURL;
 @property (strong, nonatomic) WKWebView *wkWeb;
 
-
 @end

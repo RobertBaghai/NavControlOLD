@@ -35,7 +35,7 @@
     self.window.backgroundColor = [UIColor blueColor];
     [self.window makeKeyAndVisible];
     return YES;
-*/    
+*/
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
