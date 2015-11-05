@@ -18,6 +18,8 @@
 {
     [super viewDidLoad];
     _dao = [DataAccessObject sharedInstance];
+    self.productNameText.text = self.editName;
+    self. productUrlText.text = self.editUrl;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -47,7 +49,7 @@
     prod.productURL = editProductUrl;
     prod.productLogo = editProductLogo;
     [self.navigationController popViewControllerAnimated:YES];
-    [self.dao editProduct:self.productNameText.text withLogo:editProductLogo url:self.productUrlText.text andIndex:(NSInteger*)self.indexPath.row forCompanyIndex:self.companyIndex];
+    [self.dao updateProduct:self.productNameText.text withLogo:editProductLogo url:self.productUrlText.text andIndex:(NSInteger*)self.indexPath.row forCompanyIndex:self.companyIndex];
 }
 
 - (void)dealloc {

@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dao = [DataAccessObject sharedInstance];
+    self.createdCompanyName.text = self.editName;
+    self.editStockCodeText.text = self.editStock;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -54,7 +56,7 @@
         comp.stockCode = editCompStock;
     }
     [self.navigationController popViewControllerAnimated:YES];
-    [self.dao editCompany:self.createdCompanyName.text withStockCode:self.editStockCodeText.text logo:editCompanyPic andIndex:self.indexPath.row];
+    [self.dao updateCompany:self.createdCompanyName.text withStockCode:self.editStockCodeText.text logo:editCompanyPic andIndex:self.indexPath.row];
 }
 
 
