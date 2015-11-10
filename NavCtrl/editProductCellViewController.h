@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "qcdDemoViewController.h"
-#import "ChildViewController.h"
 #import "DataAccessObject.h"
 
 @interface editProductCellViewController : UIViewController

@@ -13,10 +13,7 @@
 @end
 
 @implementation addProductsViewController
-{
-    sqlite3_stmt *stmt;
-    
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

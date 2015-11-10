@@ -41,7 +41,7 @@
 - (IBAction)makeChangesButton:(id)sender
 {    
     NSString *editCompanyCell = self.createdCompanyName.text;
-    NSString *editCompanyPic = @"yourlogo.png";
+    NSString *editCompanyPic = @"defaultComp";
     NSString *editCompStock = self.editStockCodeText.text;
     NSLog(@"%ld",(long)self.indexPath.row);
     

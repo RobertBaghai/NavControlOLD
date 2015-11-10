@@ -11,7 +11,7 @@
 #import "CoreProduct.h"
 
 @implementation DataAccessObject
-@synthesize model;
+
 +(instancetype)sharedInstance
 {
     CoreCompany *c = nil;
@@ -37,8 +37,7 @@
 {
     NSManagedObjectModel * m = [NSManagedObjectModel mergedModelFromBundles:nil];
     self.model = m;
-    NSPersistentStoreCoordinator *psc =
-    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
     
     NSString *path = [self archivePath];
     NSLog(@"%@",path);
@@ -74,22 +73,20 @@
 {
     [self initModelContext];
     self.companyList = [[[NSMutableArray alloc] init] autorelease];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"companyName MATCHES '.*'"];
     request.predicate = predicate;
-    
-    NSSortDescriptor *sortByName = [[NSSortDescriptor alloc]
-                                    initWithKey:@"companyName" ascending:YES];
-    request.sortDescriptors = [NSArray arrayWithObject:sortByName];
-    
+//    NSSortDescriptor *sortByName = [[NSSortDescriptor alloc]
+//                                    initWithKey:@"companyName" ascending:YES];
+//    request.sortDescriptors = [NSArray arrayWithObject:sortByName];
     NSEntityDescription *entity = [[self.model entitiesByName] objectForKey:@"Company"];
     request.entity = entity;
     
     NSError *error=nil;
     NSArray *fetch = [self.context executeFetchRequest:request error:&error];
     self.result = [[[NSMutableArray alloc]initWithArray:fetch] autorelease];
-    NSLog(@"%ld",[self.result count]);
+    NSLog(@"%ld",(unsigned long)[self.result count]);
     if([self.result count]==0){
         //Write to Core Data
         [self getCompaniesAndProducts];
@@ -129,7 +126,6 @@
             [tempcomp release];
             
         }
-        [request release];
 //        [sortByName release];
     }
 }
@@ -189,11 +185,16 @@
 
 -(void)deletProd:(long)index forCompanyIndex:(NSInteger *)companyIndex
 {
+    NSSortDescriptor *sortByProdName = [[NSSortDescriptor alloc]
+                                        initWithKey:@"productName" ascending:YES];
     CoreCompany *comp = [self.result objectAtIndex:(int)companyIndex];
-    NSManagedObject *prod = (NSManagedObject*)[[[comp prod] allObjects]objectAtIndex:(int)index];
+    NSArray *array = [[comp.prod allObjects]sortedArrayUsingDescriptors:@[sortByProdName]];    
+    NSManagedObject *prod = (NSManagedObject*)[array objectAtIndex:(int)index];
+    NSLog(@"Product Index %@",prod.objectID);
     [self.context deleteObject:prod];
     [comp removeProdObject:(CoreProduct*)prod];
     [self saveChanges];
+    [sortByProdName release];
 }
 
 -(void)updateProduct:(NSString*)product_Name withLogo:(NSString*)product_logo url:(NSString*)prod_url andIndex:(NSInteger*)index forCompanyIndex:(NSInteger *)companyIndex
@@ -206,14 +207,6 @@
     [self saveChanges];
 }
 
-//-(void)moveCompanyCell:(NSIndexPath*)fromIndex to:(NSIndexPath*)toIndex{
-//    CoreCompany *comp = [self.result objectAtIndex:(int)fromIndex];
-//    [comp retain];
-//    [self.result removeObjectAtIndex:(int)fromIndex];
-//    [self.result insertObject:comp atIndex:(int)toIndex];
-//    [comp release];
-//    [self saveChanges];
-//}
 
 -(void)getCompaniesAndProducts
 {

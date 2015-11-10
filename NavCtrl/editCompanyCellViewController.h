@@ -6,8 +6,7 @@
 //  Copyright © 2015 Aditya Narayan. All rights reserved.
 //
 
-#import "qcdDemoViewController.h"
-#import "ChildViewController.h"
+
 #import "DataAccessObject.h"
 #import <UIKit/UIKit.h>
 

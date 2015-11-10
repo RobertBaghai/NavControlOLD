@@ -49,6 +49,7 @@
     prod.productURL = editProductUrl;
     prod.productLogo = editProductLogo;
     [self.navigationController popViewControllerAnimated:YES];
+    
     [self.dao updateProduct:self.productNameText.text withLogo:editProductLogo url:self.productUrlText.text andIndex:(NSInteger*)self.indexPath.row forCompanyIndex:self.companyIndex];
 }
 

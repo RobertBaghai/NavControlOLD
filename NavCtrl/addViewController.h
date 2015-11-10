@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "qcdDemoViewController.h"
 #import "DataAccessObject.h"
 #import "Company.h"
 @interface addViewController : UIViewController
