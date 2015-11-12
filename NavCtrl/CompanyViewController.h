@@ -19,5 +19,6 @@
 @property (strong, nonatomic) UIBarButtonItem *deleteCells;
 @property (strong, nonatomic) NSMutableArray *arrayOfSelectedCells;
 @property(nonatomic) NSInteger *indexPath;
+@property(nonatomic) int index;
 
 @end

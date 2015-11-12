@@ -59,7 +59,6 @@
     [self.dao updateCompany:self.createdCompanyName.text withStockCode:self.editStockCodeText.text logo:editCompanyPic andIndex:self.indexPath.row];
 }
 
-
 - (void)dealloc {
     [_createdCompanyName release];
     [_createdCompNameTitle release];

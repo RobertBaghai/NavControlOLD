@@ -12,6 +12,7 @@
 #import "Product.h"
 #import "addViewController.h"
 #import "editCompanyCellViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface CompanyViewController ()
 {
@@ -28,17 +29,16 @@ static NSString * const reuseIdentifier = @"Cell";
     _dao = [DataAccessObject sharedInstance];
     [_dao readOrCreateCoreData];
     self.companyList = _dao.companyList;
-    self.arrayOfSelectedCells = [[[NSMutableArray alloc] init] autorelease];
+    self.arrayOfSelectedCells = [[NSMutableArray alloc] init] ;
     //        self.collectionView.backgroundColor=[UIColor darkGrayColor];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"CustomCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
-    
     self.title = @"Mobile Device Makers";
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(viewWillAppear:)];
     UIImage *addImage = [UIImage imageNamed:@"itemAdd"];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:addImage style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
-    self.selectCells = [[[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(select:)] autorelease];
-    self.deleteCells = [[[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target:self action:@selector(delete:)] autorelease];
+    self.selectCells = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(select:)] ;
+    self.deleteCells = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target:self action:@selector(delete:)];
     NSArray *buttons = [[NSArray alloc] initWithObjects:refreshButton,addButton,_selectCells,_deleteCells, nil];
     self.navigationItem.rightBarButtonItems = buttons;
     self.collectionView.allowsMultipleSelection = YES;
@@ -48,17 +48,13 @@ static NSString * const reuseIdentifier = @"Cell";
     [holdEdit setCancelsTouchesInView:YES];
     holdEdit.minimumPressDuration = 1.0; //seconds
     [self.collectionView addGestureRecognizer:holdEdit];
-    [refreshButton release];
-    [holdEdit release];
-    [addButton release];
-    [buttons release];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadStockPrices];
     self.selectCells.title = @"Select";
@@ -66,9 +62,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.arrayOfSelectedCells removeAllObjects];
 }
 
--(void)loadStockPrices{
-    //Async Request
-    NSURLSession *session = [NSURLSession sharedSession];
+-(void)loadStockPrices {
+    //Async Request With AFNetworking
     NSString *str = @"";
     for (int j=0; j<[self.companyList count]; j++) {
         Company *company = [self.companyList objectAtIndex:j];
@@ -78,29 +73,30 @@ static NSString * const reuseIdentifier = @"Cell";
         }
     }
     str = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=%@&f=a",str];
-    
-    [[ session dataTaskWithURL:[NSURL URLWithString:str]
-             completionHandler:^(NSData *data,
-                                 NSURLResponse *response,
-                                 NSError *error) {
-                 // handle response
-                 if (error==nil) {
-                     NSLog(@"Perfect \n\n");
-                     NSString * stockString = [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];
-                     self.rows = (NSMutableArray*)[stockString componentsSeparatedByString:@"\n"];
-                     [self.rows removeLastObject];
-                     NSLog(@"%@", self.rows);
-                     self.dao.stockPrices = self.rows;
-                     [self.dao updateStockPrices];
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         [self.collectionView reloadData];
-                     });
-                 }
-             } ]resume];
+    //    NSLog(@"%@",str);
+    NSURL *url = [NSURL URLWithString:str];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"\n\nSuccess with AFNetworking :\n%@", operation.responseString);
+        NSString * stockString = [[NSString alloc] initWithData:operation.responseData encoding:NSASCIIStringEncoding];
+        self.rows = (NSMutableArray*)[stockString componentsSeparatedByString:@"\n"];
+        [self.rows removeLastObject];
+        //                             NSLog(@"%@", self.rows);
+        self.dao.stockPrices = self.rows;
+        [self.dao updateStockPrices];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"error: %@",  operation.responseString);
+                                      }
+     ];
+    [operation start];
 }
 
 #pragma mark <UICollectionViewDataSource>
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -113,8 +109,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
-    editCompanyCellViewController *editView =[[[editCompanyCellViewController alloc]
-                                               initWithNibName:@"editCompanyCellViewController" bundle:nil] autorelease];
+    editCompanyCellViewController *editView =[[editCompanyCellViewController alloc]
+                                              initWithNibName:@"editCompanyCellViewController" bundle:nil];
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
         editView.compList = self.companyList;
         UICollectionView* collectView = (UICollectionView*)self.collectionView;
@@ -141,19 +137,51 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
--(void)delete:(id)sender{
-    NSLog(@"Delete");
-    for (int i = 0 ; i < self.arrayOfSelectedCells.count; i++) {
-        for (int j = 0; j < self.companyList.count; j++) {
-            if (self.arrayOfSelectedCells[i] == [self.companyList[j] companyID]) {
-                [self.companyList removeObjectAtIndex:j];
-                break;
+- (void)showDeleteCancelActionSheet:(NSIndexPath *)selectedPath {
+    NSString *cancelButtonTitle = NSLocalizedString(@"Cancel", nil);
+    NSString *deleteButtonTitle = NSLocalizedString(@"Delete", nil);
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Are you sure you want to delete the selected items?" preferredStyle:UIAlertControllerStyleActionSheet];
+    // Create the actions.
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSLog(@"Canceled Deletion.");
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:deleteButtonTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"Delete");
+        for (int i = 0 ; i < self.arrayOfSelectedCells.count; i++) {
+            for (int j = 0; j < self.companyList.count; j++) {
+                if (self.arrayOfSelectedCells[i] == [self.companyList[j] companyID]) {
+                    [self.companyList removeObjectAtIndex:j];
+                    break;
+                }
             }
         }
+        [self.arrayOfSelectedCells removeAllObjects];
+        [self.collectionView reloadData];
+        [self.dao deleteComp:(int)self.indexPath];
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+    
+    UIPopoverPresentationController *popoverPresentationController = [alertController popoverPresentationController];
+    if (popoverPresentationController) {
+        UICollectionViewCell *selectedCell = [self.collectionView cellForItemAtIndexPath:selectedPath];
+        popoverPresentationController.sourceRect = selectedCell.frame;
+        popoverPresentationController.sourceView = self.collectionView;
+        popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
     }
-    [self.arrayOfSelectedCells removeAllObjects];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)delete:(id)sender{
+    
+    NSIndexPath *indexPath;
+    
+    [self showDeleteCancelActionSheet:indexPath];
     [self.collectionView reloadData];
-    [self.dao deleteComp:(int)self.indexPath];
 }
 
 -(void)add:(id)sender
@@ -162,7 +190,6 @@ static NSString * const reuseIdentifier = @"Cell";
     addViewController *addView = [[addViewController alloc] initWithNibName:@"addViewController" bundle:nil];
     addView.companyList = self.companyList;
     [self.navigationController pushViewController:addView animated:YES];
-    [addView release];
 }
 
 - (CustomCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -223,7 +250,6 @@ static NSString * const reuseIdentifier = @"Cell";
         prodView.title = comp.companyName;
         prodView.companyProducts = comp.products;
         [self.navigationController pushViewController:prodView animated:YES];
-        [prodView release];
     }
     self.indexPath = (NSInteger*)indexPath.row;
 }
@@ -236,7 +262,4 @@ static NSString * const reuseIdentifier = @"Cell";
     return YES;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 @end

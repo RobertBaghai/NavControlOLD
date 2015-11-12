@@ -15,5 +15,4 @@
 @property (strong, nonatomic) NSString *productURL;
 @property (strong, nonatomic) NSNumber *productID;
 
-
 @end

@@ -77,9 +77,6 @@
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"companyName MATCHES '.*'"];
     request.predicate = predicate;
-//    NSSortDescriptor *sortByName = [[NSSortDescriptor alloc]
-//                                    initWithKey:@"companyName" ascending:YES];
-//    request.sortDescriptors = [NSArray arrayWithObject:sortByName];
     NSEntityDescription *entity = [[self.model entitiesByName] objectForKey:@"Company"];
     request.entity = entity;
     
@@ -88,7 +85,7 @@
     self.result = [[[NSMutableArray alloc]initWithArray:fetch] autorelease];
     NSLog(@"%ld",(unsigned long)[self.result count]);
     if([self.result count]==0){
-        //Write to Core Data
+        //Write Hardcoded values to Core Data
         [self getCompaniesAndProducts];
         for (int i=0; i<[self.companyList count]; i++){
             [self createCompany:[[self.companyList objectAtIndex:i] companyName]
@@ -124,9 +121,7 @@
             NSLog(@"CNAME = %@",[[self.companyList objectAtIndex:i] companyName]);
             [sortByProdName release];
             [tempcomp release];
-            
         }
-//        [sortByName release];
     }
 }
 -(void)saveChanges
@@ -188,7 +183,7 @@
     NSSortDescriptor *sortByProdName = [[NSSortDescriptor alloc]
                                         initWithKey:@"productName" ascending:YES];
     CoreCompany *comp = [self.result objectAtIndex:(int)companyIndex];
-    NSArray *array = [[comp.prod allObjects]sortedArrayUsingDescriptors:@[sortByProdName]];    
+    NSArray *array = [[comp.prod allObjects]sortedArrayUsingDescriptors:@[sortByProdName]];
     NSManagedObject *prod = (NSManagedObject*)[array objectAtIndex:(int)index];
     NSLog(@"Product Index %@",prod.objectID);
     [self.context deleteObject:prod];
