@@ -178,8 +178,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)delete:(id)sender{
     
-    NSIndexPath *indexPath;
-    
+    NSIndexPath *indexPath = nil;
     [self showDeleteCancelActionSheet:indexPath];
     [self.collectionView reloadData];
 }

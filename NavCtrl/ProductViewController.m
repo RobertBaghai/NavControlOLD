@@ -120,20 +120,51 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
--(void)delete:(id)sender {
-    for (int i = 0 ; i < self.arrayOfSelectedCells.count; i++) {
-        for (int j = 0; j < self.companyProducts.count; j++) {
-            if (self.arrayOfSelectedCells[i] == [self.companyProducts[j] productID]) {
-                [self.companyProducts removeObjectAtIndex:j];
-                break;
+- (void)showDeleteCancelActionSheet:(NSIndexPath *)selectedPath {
+    NSString *cancelButtonTitle = NSLocalizedString(@"Cancel", nil);
+    NSString *deleteButtonTitle = NSLocalizedString(@"Delete", nil);
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Are you sure you want to delete the selected items?" preferredStyle:UIAlertControllerStyleActionSheet];
+    // Create the actions.
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSLog(@"Canceled Deletion.");
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:deleteButtonTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        for (int i = 0 ; i < self.arrayOfSelectedCells.count; i++) {
+            for (int j = 0; j < self.companyProducts.count; j++) {
+                if (self.arrayOfSelectedCells[i] == [self.companyProducts[j] productID]) {
+                    [self.companyProducts removeObjectAtIndex:j];
+                    break;
+                }
             }
         }
+        [self.arrayOfSelectedCells removeAllObjects];
+        NSLog(@"%zd",self.indexPath);
+        [self.dao deletProd:(int)self.indexPath forCompanyIndex:self.compIndexPath];
+        [self.collectionView reloadData];
+        [self.collectionView reloadInputViews];
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+    
+    UIPopoverPresentationController *popoverPresentationController = [alertController popoverPresentationController];
+    if (popoverPresentationController) {
+        UICollectionViewCell *selectedCell = [self.collectionView cellForItemAtIndexPath:selectedPath];
+        popoverPresentationController.sourceRect = selectedCell.frame;
+        popoverPresentationController.sourceView = self.collectionView;
+        popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
     }
-    [self.arrayOfSelectedCells removeAllObjects];
-    NSLog(@"%zd",self.indexPath);
-    [self.dao deletProd:(int)self.indexPath forCompanyIndex:self.compIndexPath];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)delete:(id)sender {
+    NSIndexPath *indexPath = nil;
+    
+    [self showDeleteCancelActionSheet:indexPath];
     [self.collectionView reloadData];
-    [self.collectionView reloadInputViews];
 }
 
 -(void)add:(id)sender {
